@@ -9,7 +9,8 @@
       "@organisms/*": ["./src/components/organisms/*"],
       "@screens/*": ["./src/components/screens/*"],
       "@services/*": ["./src/services/*"],
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@providers/*": ["./src/providers/*"]
     }
   }
 }
