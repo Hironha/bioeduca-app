@@ -1,4 +1,4 @@
-import styled, { type FontSizeOptions, ColorOptions } from "styled-components/native";
+import styled, { type FontSizeOptions, type ColorOptions } from "styled-components/native";
 import { type DefaultTheme, type ThemedStyledProps } from "styled-components";
 
 type CustomTextSize = keyof FontSizeOptions;
