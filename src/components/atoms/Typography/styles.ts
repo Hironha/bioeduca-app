@@ -5,18 +5,24 @@ type CustomTextSize = keyof FontSizeOptions;
 type CustomTextColor = keyof ColorOptions;
 
 export type CustomTextProps = {
+  /** @default medium */
   size: CustomTextSize;
+  /** @default font */
   color: CustomTextColor;
+  /** @default false */
   bold: boolean;
+  /** @default false */
   italic: boolean;
 };
 
-const getTextSize = (props: ThemedStyledProps<CustomTextProps, DefaultTheme>) => {
-  return props.theme.fontSize[props.size];
+const getFontSize = (props: ThemedStyledProps<CustomTextProps, DefaultTheme>) => {
+  const defaultSize: CustomTextSize = 'medium'
+  return props.theme.fontSize[props.size] ?? props.theme.fontSize[defaultSize];
 };
 
-const getTextColor = (props: ThemedStyledProps<CustomTextProps, DefaultTheme>) => {
-  return props.theme.colors[props.color];
+const getFontColor = (props: ThemedStyledProps<CustomTextProps, DefaultTheme>) => {
+  const defaultColor: CustomTextColor = 'font'
+  return props.theme.colors[props.color] ?? props.theme.colors[defaultColor];
 };
 
 const getFontWeight = (
@@ -32,8 +38,8 @@ const getFontStyle = (
 };
 
 export const CustomText = styled.Text<CustomTextProps>`
-  font-size: ${getTextSize};
-  color: ${getTextColor};
+  font-size: ${getFontSize};
+  color: ${getFontColor};
   font-weight: ${getFontWeight};
   font-style: ${getFontStyle};
 `;

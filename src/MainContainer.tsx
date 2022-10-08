@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import styled from "styled-components/native";
+import { Text } from "react-native";
 
 import { ThemeProvider } from "@providers/ThemeProvider";
 import { Typography } from "@atoms/Typography";
@@ -19,9 +20,8 @@ export const MainContainer = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <Container>
-          <Typography bold italic>
-            Does this work?
-          </Typography>
+          <Text>Teste 123</Text>
+          <Typography color="warning" bold italic>Teste 111</Typography>
           <StatusBar style="auto" />
         </Container>
       </ThemeProvider>

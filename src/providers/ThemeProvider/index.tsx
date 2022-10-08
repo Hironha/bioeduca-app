@@ -1,12 +1,12 @@
 import { useState, useMemo, useContext, createContext } from "react";
-import { ThemeProvider as StyledThemeProvider } from "styled-components/native";
+import { ThemeProvider as StyledThemeProvider, type DefaultTheme } from "styled-components/native";
 
 import { defaultTheme } from "./themes";
 
 type ThemeType = "default" | "dark";
 
 type ThemeContext = {
-  theme: ThemeType;
+  theme: DefaultTheme;
   setTheme: (type: ThemeType) => void;
 };
 
@@ -34,7 +34,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ setTheme, theme }}>
+    <ThemeContext.Provider value={{ setTheme, theme: currentTheme }}>
       <StyledThemeProvider theme={currentTheme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );

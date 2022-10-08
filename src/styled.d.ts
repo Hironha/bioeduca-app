@@ -5,6 +5,7 @@ declare module "styled-components/native" {
     small: string;
     medium: string;
     large: string;
+    extraLarge: string;
   };
 
   export type ColorOptions = {

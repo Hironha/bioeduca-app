@@ -1,25 +1,13 @@
-import React, { forwardRef } from "react";
-import { Text, TextProps } from "react-native";
+import React from "react";
 
 import { CustomText, type CustomTextProps } from "./styles";
 
+import { type TextProps } from "react-native";
+
 type TypographyProps = TextProps & Partial<CustomTextProps>;
 
-const TypographyComponent = (props: TypographyProps, ref: React.ForwardedRef<Text>) => {
-  const {
-    children,
-    color = "font",
-    size = "medium",
-    bold = false,
-    italic = false,
-    ...textProps
-  } = props;
+export const Typography = (props: TypographyProps) => {
+  const { children, ...textProps } = props;
 
-  return (
-    <CustomText {...textProps} ref={ref}>
-      {children}
-    </CustomText>
-  );
+  return <CustomText {...textProps}>{children}</CustomText>;
 };
-
-export const Typography = forwardRef(TypographyComponent);
