@@ -4,8 +4,8 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import { HomeStack } from "@organisms/HomeStack";
-import { PlantsStack } from "@organisms/PlantsStack";
+import { HomeStack } from "@navigations/HomeStack";
+import { PlantsStack } from "@navigations/PlantsStack";
 
 import { useTheme } from "@providers/ThemeProvider";
 import { createRouteConfig } from "./utils/route";
@@ -13,8 +13,8 @@ import { createRouteConfig } from "./utils/route";
 import { type RouteProp } from "@react-navigation/native";
 
 type BottomTabsParamsList = {
-  Home: undefined;
-  Plants: undefined;
+  HomeTab: undefined;
+  PlantsTab: undefined;
 };
 
 export type BottomTabRoute = RouteProp<BottomTabsParamsList, keyof BottomTabsParamsList>;
@@ -45,8 +45,8 @@ export const BottomNavigation = () => {
 
   return (
     <BottomTabs.Navigator screenOptions={({ route }) => createScreenOptions(route)}>
-      <BottomTabs.Screen name="Home" component={HomeStack} />
-      <BottomTabs.Screen name="Plants" component={PlantsStack} />
+      <BottomTabs.Screen name="HomeTab" component={HomeStack} />
+      <BottomTabs.Screen name="PlantsTab" component={PlantsStack} />
     </BottomTabs.Navigator>
   );
 };

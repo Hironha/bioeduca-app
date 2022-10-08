@@ -8,7 +8,7 @@ import { HomeScreen } from "@screens/Home";
 import { useTheme } from "@providers/ThemeProvider";
 
 type HomeStackParamsList = {
-  HomeStack: undefined;
+  HomeScreen: undefined;
 };
 
 type CommonScreenOptions = Pick<
@@ -34,8 +34,8 @@ const HomeStack = () => {
   };
 
   return (
-    <Stack.Navigator initialRouteName={"HomeStack"} screenOptions={commonScreenOptions}>
-      <Stack.Screen name={"HomeStack"} component={HomeScreen} options={{ headerTitle: "Início" }} />
+    <Stack.Navigator initialRouteName={"HomeScreen"} screenOptions={commonScreenOptions}>
+      <Stack.Screen name={"HomeScreen"} component={HomeScreen} options={{ headerTitle: "Início" }} />
     </Stack.Navigator>
   );
 };

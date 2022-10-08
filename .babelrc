@@ -11,7 +11,8 @@
           "@screens": "./src/components/screens",
           "@services": "./src/services",
           "@interfaces": "./src/interfaces",
-          "@providers": "./src/providers"
+          "@providers": "./src/providers",
+          "@navigations": "./src/navigations" 
         }
       }
     ],

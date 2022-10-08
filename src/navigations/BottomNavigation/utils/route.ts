@@ -21,9 +21,9 @@ const createPlantsRouteConfig = (): RouteConfig => {
 
 const createRouteConfig = (route: BottomTabRoute): RouteConfig => {
   switch (route.name) {
-    case "Home":
+    case "HomeTab":
       return createHomeRouteConfig();
-    case "Plants":
+    case "PlantsTab":
       return createPlantsRouteConfig();
     default:
       return createHomeRouteConfig();

@@ -10,8 +10,8 @@ import { ListPlantsScreen } from "@screens/ListPlants";
 import { useTheme } from "@providers/ThemeProvider";
 
 type PlantsStackParamsList = {
-  ListPlants: undefined;
-  ConsultPlant: { plantId: string };
+  ListPlantsScreen: undefined;
+  ConsultPlantScreen: { plantId: string };
 };
 
 type CommonScreenOptions = Pick<
@@ -37,9 +37,13 @@ const PlantsStack = () => {
   };
 
   return (
-    <Stack.Navigator initialRouteName={"ListPlants"} screenOptions={commonScreenOptions}>
+    <Stack.Navigator
+      id="PlantStack"
+      initialRouteName={"ListPlantsScreen"}
+      screenOptions={commonScreenOptions}
+    >
       <Stack.Screen
-        name={"ListPlants"}
+        name={"ListPlantsScreen"}
         component={ListPlantsScreen}
         options={{
           headerTitle: "Listagem de Plantas",
@@ -47,7 +51,7 @@ const PlantsStack = () => {
       />
 
       <Stack.Screen
-        name="ConsultPlant"
+        name="ConsultPlantScreen"
         component={ConsultPlantScreen}
         options={(props) => ({
           headerTitle: `Planta ${props.route.params.plantId}`,
