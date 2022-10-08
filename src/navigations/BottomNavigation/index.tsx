@@ -5,28 +5,26 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import { HomeStack } from "@navigations/HomeStack";
-import { PlantsStack } from "@navigations/PlantsStack";
+import { PlantsStack, type PlantsStackParamsList } from "@navigations/PlantsStack";
 
 import { useTheme } from "@providers/ThemeProvider";
 import { createRouteConfig } from "./utils/route";
 
 import { type RouteProp } from "@react-navigation/native";
+import { INavigationParams } from "@interfaces/navigation/params";
 
 type BottomTabsParamsList = {
   HomeTab: undefined;
-  PlantsTab: undefined;
+  PlantsTab:
+    | INavigationParams<PlantsStackParamsList, "ConsultPlantScreen">
+    | INavigationParams<PlantsStackParamsList, "ListPlantsScreen">;
 };
 
 export type BottomTabRoute = RouteProp<BottomTabsParamsList, keyof BottomTabsParamsList>;
 
-export type BottomTabRouteProps<T extends keyof BottomTabsParamsList> = RouteProp<
-  BottomTabsParamsList,
-  T
->;
-
 const BottomTabs = createBottomTabNavigator<BottomTabsParamsList>();
 
-export const BottomNavigation = () => {
+const BottomNavigation = () => {
   const { theme } = useTheme();
 
   const createScreenOptions = (route: BottomTabRoute): BottomTabNavigationOptions => {
@@ -50,3 +48,5 @@ export const BottomNavigation = () => {
     </BottomTabs.Navigator>
   );
 };
+
+export { BottomNavigation, BottomTabsParamsList };

@@ -19,11 +19,6 @@ type CommonScreenOptions = Pick<
   "headerTintColor" | "headerStyle" | "animation" | "animationDuration"
 >;
 
-type PlantsStackScreenProps<T extends keyof PlantsStackParamsList> = NativeStackScreenProps<
-  PlantsStackParamsList,
-  T
->;
-
 const Stack = createNativeStackNavigator<PlantsStackParamsList>();
 
 const PlantsStack = () => {
@@ -61,4 +56,4 @@ const PlantsStack = () => {
   );
 };
 
-export { PlantsStack, PlantsStackScreenProps };
+export { PlantsStack, PlantsStackParamsList };

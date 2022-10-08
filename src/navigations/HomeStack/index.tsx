@@ -16,11 +16,6 @@ type CommonScreenOptions = Pick<
   "headerTintColor" | "headerStyle" | "animation" | "animationDuration"
 >;
 
-type HomeStackScreenProps<T extends keyof HomeStackParamsList> = NativeStackScreenProps<
-  HomeStackParamsList,
-  T
->;
-
 const Stack = createNativeStackNavigator<HomeStackParamsList>();
 
 const HomeStack = () => {
@@ -35,9 +30,13 @@ const HomeStack = () => {
 
   return (
     <Stack.Navigator initialRouteName={"HomeScreen"} screenOptions={commonScreenOptions}>
-      <Stack.Screen name={"HomeScreen"} component={HomeScreen} options={{ headerTitle: "Início" }} />
+      <Stack.Screen
+        name={"HomeScreen"}
+        component={HomeScreen}
+        options={{ headerTitle: "Início" }}
+      />
     </Stack.Navigator>
   );
 };
 
-export { HomeStack, HomeStackScreenProps };
+export { HomeStack, HomeStackParamsList };

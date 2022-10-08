@@ -1,8 +1,10 @@
 import { View, Text, Pressable } from "react-native";
 
-import { type PlantsStackScreenProps } from "@navigations/PlantsStack";
+import { type PlantsStackParamsList } from "@navigations/PlantsStack";
+import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type ListPlantsScreenProps = PlantsStackScreenProps<"ListPlantsScreen">;
+type ListPlantsScreenProps = NativeStackScreenProps<PlantsStackParamsList & BottomTabsParamsList>;
 
 export const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   return (
