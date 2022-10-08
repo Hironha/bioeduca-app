@@ -15,6 +15,7 @@ declare module "styled-components/native" {
     warning: string;
     error: string;
     font: string
+    white: string;
   };
 
   export interface DefaultTheme {

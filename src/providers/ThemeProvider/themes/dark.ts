@@ -8,6 +8,7 @@ export const defaultTheme: DefaultTheme = {
     warning: "#ffbd2e",
     error: "#ff5f56",
     font: "#ffffff",
+    white: "#ffffff"
   },
   border: {
     radius: "5px",
