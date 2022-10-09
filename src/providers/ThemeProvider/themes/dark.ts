@@ -8,7 +8,8 @@ export const defaultTheme: DefaultTheme = {
     warning: "#ffbd2e",
     error: "#ff5f56",
     font: "#ffffff",
-    white: "#ffffff"
+    white: "#ffffff",
+    lightGray: "#e0e0e0",
   },
   border: {
     radius: "5px",
@@ -17,7 +18,7 @@ export const defaultTheme: DefaultTheme = {
     small: "12px",
     medium: "16px",
     large: "20px",
-    extraLarge: "24px"
+    extraLarge: "24px",
   },
   boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
 };

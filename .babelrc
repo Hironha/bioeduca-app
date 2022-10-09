@@ -12,7 +12,7 @@
           "@services": "./src/services",
           "@interfaces": "./src/interfaces",
           "@providers": "./src/providers",
-          "@navigations": "./src/navigations" 
+          "@navigations": "./src/navigations"
         }
       }
     ],
