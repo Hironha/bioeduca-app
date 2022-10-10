@@ -1,11 +1,12 @@
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 
 import { ListPlantsPreview } from "@organisms/ListPlantsPreview";
+import { ScreenLayout } from "@molecules/ScreenLayout";
 
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import { IPlantPreview } from "@interfaces/models/plant";
+import { type IPlantPreview } from "@interfaces/models/plant";
 
 type ListPlantsScreenProps = NativeStackScreenProps<PlantsStackParamsList & BottomTabsParamsList>;
 
@@ -53,15 +54,17 @@ const mock: IPlantPreview[] = [
   },
 ];
 
-export const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
+const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   return (
-    <View>
+    <ScreenLayout>
       <Text>List plants screen</Text>
       <Pressable onPress={() => navigation.navigate("ConsultPlantScreen", { plantId: "teste" })}>
         <Text>To Consult</Text>
       </Pressable>
 
       <ListPlantsPreview data={mock} />
-    </View>
+    </ScreenLayout>
   );
 };
+
+export { ListPlantsScreen, ListPlantsScreenProps };

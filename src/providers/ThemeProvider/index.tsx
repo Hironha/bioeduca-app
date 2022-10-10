@@ -1,7 +1,7 @@
 import { useState, useMemo, useContext, createContext } from "react";
 import { ThemeProvider as StyledThemeProvider, type DefaultTheme } from "styled-components/native";
 
-import { defaultTheme } from "./themes";
+import { defaultTheme, darkTheme } from "./themes";
 
 type ThemeType = "default" | "dark";
 
@@ -26,6 +26,8 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
 
   const currentTheme = useMemo(() => {
     switch (theme) {
+      case "dark":
+        return darkTheme;
       case "default":
         return defaultTheme;
       default:

@@ -2,13 +2,12 @@ import styled from "styled-components/native";
 import Animated from "react-native-reanimated";
 
 const PlantCardContainer = styled(Animated.View)`
-  margin: 0 24px;
+  margin: 4px 24px;
   background-color: ${(props) => props.theme.colors.lightGray};
   border-style: solid;
   border-left-color: ${(props) => props.theme.colors.primary};
   border-left-width: 5px;
   border-radius: ${(props) => props.theme.border.radius};
-  box-shadow: 5px 10px black;
 `;
 
 const PressableContainer = styled.Pressable`

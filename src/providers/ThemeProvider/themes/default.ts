@@ -9,7 +9,7 @@ export const defaultTheme: DefaultTheme = {
     error: "#ff5f56",
     font: "#000000",
     white: "#ffffff",
-    lightGray: "#e0e0e0",
+    lightGray: "#fafafa",
   },
   border: {
     radius: "5px",
@@ -20,5 +20,4 @@ export const defaultTheme: DefaultTheme = {
     large: "20px",
     extraLarge: "24px"
   },
-  boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
 };

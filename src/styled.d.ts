@@ -24,7 +24,6 @@ declare module "styled-components/native" {
     border: {
       radius: string;
     };
-    boxShadow: string;
     fontSize: FontSizeOptions;
   }
 }

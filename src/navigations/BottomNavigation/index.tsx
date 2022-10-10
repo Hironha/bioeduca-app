@@ -11,7 +11,7 @@ import { useTheme } from "@providers/ThemeProvider";
 import { createRouteConfig } from "./utils/route";
 
 import { type RouteProp } from "@react-navigation/native";
-import { INavigationParams } from "@interfaces/navigation/params";
+import { type INavigationParams } from "@interfaces/navigation/params";
 
 type BottomTabsParamsList = {
   HomeTab: undefined;
@@ -34,7 +34,9 @@ const BottomNavigation = () => {
       tabBarIcon: ({ color, size }) => {
         return <Ionicons name={icon} color={color} size={size} />;
       },
+      tabBarStyle: { backgroundColor: theme.colors.background },
       tabBarLabel: label,
+      tabBarLabelStyle: { color: theme.colors.font },
       tabBarActiveTintColor: theme.colors.primary,
       tabBarInactiveTintColor: theme.colors.font,
       headerShown: false,

@@ -16,7 +16,7 @@ const PlantPreviewCard = (props: PlantPreviewCardProps) => {
   const { scientificName, popularName, imageURI, onPress, ...cardProps } = props;
 
   return (
-    <PlantCardContainer {...cardProps}>
+    <PlantCardContainer style={[{ elevation: 6 }, props.style]} {...cardProps}>
       <PressableContainer onPress={onPress}>
         <PlantImage source={{ uri: imageURI }} />
 
