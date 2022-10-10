@@ -2,8 +2,8 @@ import styled from "styled-components/native";
 import Animated from "react-native-reanimated";
 
 const PlantCardContainer = styled(Animated.View)`
-  margin: 4px 24px;
-  background-color: ${(props) => props.theme.colors.lightGray};
+  margin: 0 24px;
+  background-color: ${(props) => props.theme.colors.background};
   border-style: solid;
   border-left-color: ${(props) => props.theme.colors.primary};
   border-left-width: 5px;
@@ -19,7 +19,7 @@ const PressableContainer = styled.Pressable`
 `;
 
 const InformationContainer = styled.View`
-  margin-left: 24px;
+  margin-left: 16px;
   justify-content: center;
 
   padding: 6px;

@@ -21,6 +21,7 @@ export const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
     <Animated.FlatList
       {...flatListProps}
       keyExtractor={(item) => item.id}
+      contentContainerStyle={{ paddingVertical: 12 }}
       ListEmptyComponent={<ListEmpty text="Não foi possível encontrar nenhuma planta" />}
       renderItem={({ item }) => (
         <PlantPreviewCard

@@ -34,9 +34,13 @@ const BottomNavigation = () => {
       tabBarIcon: ({ color, size }) => {
         return <Ionicons name={icon} color={color} size={size} />;
       },
-      tabBarStyle: { backgroundColor: theme.colors.background },
+      tabBarStyle: { backgroundColor: theme.colors.background, height: 60 },
       tabBarLabel: label,
-      tabBarLabelStyle: { color: theme.colors.font },
+      tabBarLabelStyle: {
+        color: theme.colors.font,
+        marginBottom: 6,
+        fontSize: Number(theme.fontSize.medium.replace(/\D/g, "")),
+      },
       tabBarActiveTintColor: theme.colors.primary,
       tabBarInactiveTintColor: theme.colors.font,
       headerShown: false,
