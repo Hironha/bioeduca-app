@@ -5,6 +5,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import { HomeStack } from "@navigations/HomeStack";
+import { ConfigurationsStack } from "@navigations/ConfigurationsStack";
 import { PlantsStack, type PlantsStackParamsList } from "@navigations/PlantsStack";
 
 import { useTheme } from "@providers/ThemeProvider";
@@ -15,6 +16,7 @@ import { type INavigationParams } from "@interfaces/navigation/params";
 
 type BottomTabsParamsList = {
   HomeTab: undefined;
+  ConfigurationsTab: undefined;
   PlantsTab:
     | INavigationParams<PlantsStackParamsList, "ConsultPlantScreen">
     | INavigationParams<PlantsStackParamsList, "ListPlantsScreen">;
@@ -51,6 +53,7 @@ const BottomNavigation = () => {
     <BottomTabs.Navigator screenOptions={({ route }) => createScreenOptions(route)}>
       <BottomTabs.Screen name="HomeTab" component={HomeStack} />
       <BottomTabs.Screen name="PlantsTab" component={PlantsStack} />
+      <BottomTabs.Screen name="ConfigurationsTab" component={ConfigurationsStack} />
     </BottomTabs.Navigator>
   );
 };

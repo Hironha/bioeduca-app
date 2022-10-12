@@ -1,14 +1,18 @@
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
+import { ScreenLayout } from "@molecules/ScreenLayout";
 
 import { type HomeStackParamsList } from "@navigations/HomeStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type HomeScreenProps = NativeStackScreenProps<HomeStackParamsList & BottomTabsParamsList>;
+type HomeScreenProps = NativeStackScreenProps<
+  HomeStackParamsList & BottomTabsParamsList,
+  "HomeScreen"
+>;
 
-export const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
+const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   return (
-    <View>
+    <ScreenLayout>
       <Text>Home screen</Text>
       <Pressable
         onPress={() => {
@@ -21,6 +25,8 @@ export const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
       >
         <Text>Teste</Text>
       </Pressable>
-    </View>
+    </ScreenLayout>
   );
 };
+
+export { HomeScreen, HomeScreenProps };

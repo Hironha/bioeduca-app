@@ -5,7 +5,7 @@ type ListEmptyProps = {
   text: string;
 };
 
-export const ListEmpty = (props: ListEmptyProps) => {
+const ListEmpty = (props: ListEmptyProps) => {
   return (
     <ListEmptyContainer>
       <Typography color="lightGray" size="extraLarge">
@@ -14,3 +14,5 @@ export const ListEmpty = (props: ListEmptyProps) => {
     </ListEmptyContainer>
   );
 };
+
+export { ListEmpty, ListEmptyProps };

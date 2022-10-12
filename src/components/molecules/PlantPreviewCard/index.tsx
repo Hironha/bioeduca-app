@@ -34,4 +34,4 @@ const PlantPreviewCard = (props: PlantPreviewCardProps) => {
   );
 };
 
-export { PlantPreviewCard, PlantPreviewCardProps as PlantCardProps };
+export { PlantPreviewCard, PlantPreviewCardProps };

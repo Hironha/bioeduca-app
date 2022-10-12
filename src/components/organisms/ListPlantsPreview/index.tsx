@@ -14,7 +14,7 @@ type ListPlantsPreviewProps = AnimateProps<
   >
 >;
 
-export const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
+const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
   const { horizontal = false, ...flatListProps } = props;
 
   return (
@@ -35,3 +35,5 @@ export const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
     />
   );
 };
+
+export { ListPlantsPreview, ListPlantsPreviewProps };

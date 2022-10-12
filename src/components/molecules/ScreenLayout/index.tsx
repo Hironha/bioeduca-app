@@ -1,5 +1,4 @@
 import React, { forwardRef } from "react";
-import { SafeAreaView } from "react-native";
 import { ScreenLayoutContainer } from "./styles";
 
 import { type ViewProps } from "react-native";
@@ -9,11 +8,7 @@ type ScreenLayoutProps = {
 };
 
 const ScreenLayoutComponent = (props: ScreenLayoutProps, ref: React.ForwardedRef<ViewProps>) => {
-  return (
-    <ScreenLayoutContainer ref={ref}>
-      <SafeAreaView>{props.children}</SafeAreaView>
-    </ScreenLayoutContainer>
-  );
+  return <ScreenLayoutContainer ref={ref}>{props.children}</ScreenLayoutContainer>;
 };
 
 const ScreenLayout = forwardRef(ScreenLayoutComponent);

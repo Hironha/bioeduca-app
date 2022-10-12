@@ -1,41 +1,27 @@
-import {
-  createNativeStackNavigator,
-  type NativeStackNavigationOptions,
-  type NativeStackScreenProps,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ConsultPlantScreen } from "@screens/ConsultPlant";
 
 import { ListPlantsScreen } from "@screens/ListPlants";
 
 import { useTheme } from "@providers/ThemeProvider";
+import { createDefaultScreenOptions } from "@navigations/common/screenOptions";
 
 type PlantsStackParamsList = {
   ListPlantsScreen: undefined;
   ConsultPlantScreen: { plantId: string };
 };
 
-type CommonScreenOptions = Pick<
-  NativeStackNavigationOptions,
-  "headerTintColor" | "headerStyle" | "animation" | "animationDuration"
->;
-
 const Stack = createNativeStackNavigator<PlantsStackParamsList>();
 
 const PlantsStack = () => {
   const { theme } = useTheme();
-
-  const commonScreenOptions: CommonScreenOptions = {
-    animation: "slide_from_right",
-    animationDuration: 150,
-    headerTintColor: theme.colors.white,
-    headerStyle: { backgroundColor: theme.colors.primary },
-  };
+  const defaultScreenOptions = createDefaultScreenOptions(theme);
 
   return (
     <Stack.Navigator
       id="PlantStack"
       initialRouteName={"ListPlantsScreen"}
-      screenOptions={commonScreenOptions}
+      screenOptions={defaultScreenOptions}
     >
       <Stack.Screen
         name={"ListPlantsScreen"}

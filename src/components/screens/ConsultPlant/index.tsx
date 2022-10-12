@@ -7,7 +7,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type ConsultPlantScreenProps = NativeStackScreenProps<PlantsStackParamsList & BottomTabsParamsList>;
 
-export const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
+const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
   return (
     <View>
       <Text>Consult plant screen</Text>
@@ -23,3 +23,5 @@ export const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProp
     </View>
   );
 };
+
+export { ConsultPlantScreen, ConsultPlantScreenProps };
