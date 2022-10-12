@@ -1,5 +1,5 @@
 import { Text, Pressable } from "react-native";
-import { ScreenLayout } from "@molecules/ScreenLayout";
+import { ScreenLayout } from "@atoms/ScreenLayout";
 
 import { type HomeStackParamsList } from "@navigations/HomeStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
@@ -13,7 +13,6 @@ type HomeScreenProps = NativeStackScreenProps<
 const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   return (
     <ScreenLayout>
-      <Text>Home screen</Text>
       <Pressable
         onPress={() => {
           navigation.navigate("PlantsTab", {

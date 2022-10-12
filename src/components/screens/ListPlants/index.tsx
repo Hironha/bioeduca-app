@@ -1,7 +1,7 @@
 import { Text, Pressable } from "react-native";
 
 import { ListPlantsPreview } from "@organisms/ListPlantsPreview";
-import { ScreenLayout } from "@molecules/ScreenLayout";
+import { ScreenLayout } from "@atoms/ScreenLayout";
 
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";

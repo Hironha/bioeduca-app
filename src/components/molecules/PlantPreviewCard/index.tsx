@@ -21,7 +21,7 @@ const PlantPreviewCard = (props: PlantPreviewCardProps) => {
         <PlantImage source={{ uri: imageURI }} />
 
         <InformationContainer>
-          <Typography color="primary" size="large" bold>
+          <Typography color="primary" size="medium" bold>
             {popularName}
           </Typography>
 

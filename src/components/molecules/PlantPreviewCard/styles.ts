@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import Animated from "react-native-reanimated";
 
 const PlantCardContainer = styled(Animated.View)`
-  margin: 0 24px;
+  margin: 0 12px;
   background-color: ${(props) => props.theme.colors.background};
   border-style: solid;
   border-left-color: ${(props) => props.theme.colors.primary};

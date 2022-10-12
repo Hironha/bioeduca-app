@@ -29,6 +29,12 @@ const BottomTabs = createBottomTabNavigator<BottomTabsParamsList>();
 const BottomNavigation = () => {
   const { theme } = useTheme();
 
+  const pxToNumber = (value: string) => {
+    const numericValue = parseInt(value.replace(/\D/g, ""));
+    if (isNaN(numericValue)) return 0;
+    return numericValue;
+  };
+
   const createScreenOptions = (route: BottomTabRoute): BottomTabNavigationOptions => {
     const { icon, label } = createRouteConfig(route);
 
@@ -36,12 +42,16 @@ const BottomNavigation = () => {
       tabBarIcon: ({ color, size }) => {
         return <Ionicons name={icon} color={color} size={size} />;
       },
-      tabBarStyle: { backgroundColor: theme.colors.background, height: 60 },
+      tabBarStyle: {
+        backgroundColor: theme.colors.background,
+        borderTopLeftRadius: pxToNumber(theme.border.radius) * 2,
+        borderTopRightRadius: pxToNumber(theme.border.radius) * 2
+      },
       tabBarLabel: label,
       tabBarLabelStyle: {
         color: theme.colors.font,
-        marginBottom: 6,
-        fontSize: Number(theme.fontSize.medium.replace(/\D/g, "")),
+        marginBottom: 4,
+        fontSize: pxToNumber(theme.fontSize.small),
       },
       tabBarActiveTintColor: theme.colors.primary,
       tabBarInactiveTintColor: theme.colors.font,

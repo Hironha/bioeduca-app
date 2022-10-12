@@ -5,3 +5,7 @@ export const ScreenLayoutContainer = styled.SafeAreaView`
   padding: 12px;
   background-color: ${(props) => props.theme.colors.background};
 `;
+
+export const ContentContainer = styled.View`
+  margin: 8px 0;
+`;

@@ -1,4 +1,4 @@
-import { ScreenLayout } from "@molecules/ScreenLayout";
+import { ScreenLayout } from "@atoms/ScreenLayout";
 
 import { BottomTabsParamsList } from "@navigations/BottomNavigation";
 
