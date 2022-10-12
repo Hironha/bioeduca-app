@@ -8,7 +8,7 @@ import { createDefaultScreenOptions } from "@navigations/common/screenOptions";
 
 type PlantsStackParamsList = {
   ListPlantsScreen: undefined;
-  ConsultPlantScreen: { plantId: string };
+  ConsultPlantScreen: { plantId: string; plantPopularName: string };
 };
 
 const Stack = createNativeStackNavigator<PlantsStackParamsList>();
@@ -35,7 +35,7 @@ const PlantsStack = () => {
         name="ConsultPlantScreen"
         component={ConsultPlantScreen}
         options={(props) => ({
-          headerTitle: `Planta ${props.route.params.plantId}`,
+          headerTitle: props.route.params.plantPopularName,
         })}
       />
     </Stack.Navigator>

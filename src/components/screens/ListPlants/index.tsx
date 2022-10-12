@@ -1,68 +1,56 @@
-import { Text, Pressable } from "react-native";
+import { useMemo, useEffect } from "react";
+import { ActivityIndicator, Alert } from "react-native";
 
+import { Typography } from "@atoms/Typography";
 import { ListPlantsPreview } from "@organisms/ListPlantsPreview";
 import { ScreenLayout } from "@atoms/ScreenLayout";
+
+import { useTheme } from "@providers/ThemeProvider";
+import { useListPaginatedPlantsPreview } from "@services/hooks/plant/useListPaginatesPlantsPreview";
 
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import { type IPlantPreview } from "@interfaces/models/plant";
 
 type ListPlantsScreenProps = NativeStackScreenProps<PlantsStackParamsList & BottomTabsParamsList>;
 
-const mock: IPlantPreview[] = [
-  {
-    id: "0BIx17DJKMmBOgM35YBp",
-    popular_name: "Pinheiro do Paraná",
-    scientific_name: "Araucaria angustifólia",
-    images: [
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2F0BIx17DJKMmBOgM35YBp/pinheiro-do-parana.jpg",
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2F0BIx17DJKMmBOgM35YBp/pinheiro-do-parana-2.jpg",
-    ],
-  },
-  {
-    id: "vZLRUFYCfLwusuQXiaxn",
-    popular_name: "hironha san",
-    scientific_name: "homo-hironhas",
-    images: [
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2FvZLRUFYCfLwusuQXiaxn/QR Code.jpeg",
-    ],
-  },
-  {
-    id: "dE0k5szGQS0qcvd7hWxd",
-    popular_name: "hironha",
-    scientific_name: "homo-hironhas",
-    images: [
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2FdE0k5szGQS0qcvd7hWxd/QR Code.jpeg",
-    ],
-  },
-  {
-    id: "bVse3KpjG9e5hU8wpNQd",
-    popular_name: "hironha",
-    scientific_name: "homo-hironhas",
-    images: [
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2FbVse3KpjG9e5hU8wpNQd/QR Code.jpeg",
-    ],
-  },
-  {
-    id: "X3dYLFbg0BxuNXNaPmbS",
-    popular_name: "hironha",
-    scientific_name: "homo-hironhas",
-    images: [
-      "https://storage.googleapis.com/projeto-bioeduca-5a2f3.appspot.com/plants%2FX3dYLFbg0BxuNXNaPmbS/QR Code.jpeg",
-    ],
-  },
-];
-
 const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
+  const { theme } = useTheme();
+
+  const listPaginatedPlantsPreviewResult = useListPaginatedPlantsPreview({
+    retry: false,
+    refetchOnWindowFocus: false,
+    cacheTime: 60 * 60 * 1000,
+    staleTime: Infinity,
+    meta: { perPage: 10 },
+  });
+
+  const plantsPreview = useMemo(() => {
+    return listPaginatedPlantsPreviewResult.data?.pages?.map((response) => response.data).flat();
+  }, [listPaginatedPlantsPreviewResult.data?.pages]);
+
+  const navigateToPlantScreen = (plantId: string, popularName: string) => {
+    navigation.navigate("ConsultPlantScreen", { plantId, plantPopularName: popularName });
+  };
+
+  useEffect(() => {
+    if (listPaginatedPlantsPreviewResult.isError) {
+      Alert.alert("Erro");
+    }
+  }, [listPaginatedPlantsPreviewResult.isError]);
+
   return (
     <ScreenLayout>
-      <Text>List plants screen</Text>
-      <Pressable onPress={() => navigation.navigate("ConsultPlantScreen", { plantId: "teste" })}>
-        <Text>To Consult</Text>
-      </Pressable>
-
-      <ListPlantsPreview data={mock} />
+      {listPaginatedPlantsPreviewResult.isLoading ? (
+        <ActivityIndicator color={theme.colors.primary} />
+      ) : (
+        <ListPlantsPreview
+          data={plantsPreview ?? []}
+          onItemPress={(item) => navigateToPlantScreen(item.id, item.popular_name)}
+          ListHeaderComponent={<Typography>Listagem de plantas</Typography>}
+          onEndReached={() => listPaginatedPlantsPreviewResult.fetchNextPage()}
+        />
+      )}
     </ScreenLayout>
   );
 };

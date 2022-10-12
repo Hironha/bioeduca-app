@@ -1,7 +1,9 @@
 import styled from "styled-components/native";
 
-export const ListEmptyContainer = styled.View`
+const EmptyContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
 `;
+
+export { EmptyContainer };

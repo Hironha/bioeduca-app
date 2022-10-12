@@ -1,26 +1,55 @@
-import { View, Text, Pressable } from "react-native";
-import { PlantPreviewCard } from "@molecules/PlantPreviewCard";
+import { Loading } from "@atoms/Loading";
+import { Typography } from "@atoms/Typography";
+import { ScreenLayout } from "@atoms/ScreenLayout";
+import { Empty } from "@molecules/Empty";
+import { Collapse } from "@molecules/Collpase";
+
+import { useConsultPlant } from "@services/hooks/plant/useConsultPlant";
 
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type ConsultPlantScreenProps = NativeStackScreenProps<PlantsStackParamsList & BottomTabsParamsList>;
+type ConsultPlantScreenProps = NativeStackScreenProps<
+  PlantsStackParamsList & BottomTabsParamsList,
+  "ConsultPlantScreen"
+>;
 
 const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
-  return (
-    <View>
-      <Text>Consult plant screen</Text>
-      <Pressable onPress={() => navigation.navigate("ListPlantsScreen")}>
-        <Text>To List</Text>
-      </Pressable>
+  const consultPlantResult = useConsultPlant({
+    plantId: route.params.plantId,
+    options: {
+      retry: false,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      cacheTime: 60 * 60 * 1000,
+      staleTime: Infinity,
+    },
+  });
 
-      <PlantPreviewCard
-        imageURI="https://cdn.dribbble.com/users/5160402/screenshots/13988125/media/ba09044750f6606832c92de8f98a25cd.png?compress=1&resize=400x300"
-        popularName="Teste"
-        scientificName="Teste123"
-      />
-    </View>
+  if (consultPlantResult.isLoading) {
+    return (
+      <ScreenLayout>
+        <Loading />
+      </ScreenLayout>
+    );
+  }
+
+  if (consultPlantResult.isError || consultPlantResult.data === undefined) {
+    return (
+      <ScreenLayout>
+        <Empty text={`Não foi possível encontra a planta ${route.params.plantPopularName}`} />
+      </ScreenLayout>
+    );
+  }
+
+  return (
+    <ScreenLayout>
+      <Typography>{consultPlantResult.data?.popular_name}</Typography>
+      <Collapse label="Teste">
+        <Typography>heheehehehehe</Typography>
+      </Collapse>
+    </ScreenLayout>
   );
 };
 

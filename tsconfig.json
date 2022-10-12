@@ -12,6 +12,8 @@
       "@interfaces/*": ["./src/interfaces/*"],
       "@providers/*": ["./src/providers/*"],
       "@navigations/*": ["./src/navigations/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }
