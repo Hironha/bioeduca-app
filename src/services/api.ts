@@ -2,8 +2,10 @@ import axios from "axios";
 
 import { API_BASE_URL } from "@env";
 
+console.log(API_BASE_URL)
+
 export const api = axios.create({
-  baseURL: "http://192.168.100.11:4000",
+  baseURL: API_BASE_URL,
   timeout: 60 * 1000,
   validateStatus: (status) => {
     return status >= 200 && status <= 300;

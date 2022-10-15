@@ -8,7 +8,7 @@ type EmptyProps = {
 const Empty = (props: EmptyProps) => {
   return (
     <EmptyContainer>
-      <Typography color="lightGray" size="extraLarge">
+      <Typography color="warning" size="extraLarge">
         {props.text}
       </Typography>
     </EmptyContainer>

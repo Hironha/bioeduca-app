@@ -1,21 +1,21 @@
+import Animated from "react-native-reanimated";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-import { CollpaseLabel, CollpaseContainer, CollapseTitleContainer } from "./styles";
+import { CollpaseLabelContainer, CollpaseContainer, CollapseTitleContainer } from "./styles";
 
 import { useTheme } from "@providers/ThemeProvider";
 import { pxToNumber } from "@utils/convertions";
 import { useCollapsed } from "./hooks/useCollapse";
 import { useCollapseAnimation } from "./hooks/useCollapseAnimation";
-
-import { type TypographyProps } from "@atoms/Typography";
 import { useCollapseIconAnimation } from "./hooks/useCollapseIconAnimation";
-import Animated from "react-native-reanimated";
+
+import { type ColorOptions, type FontSizeOptions } from "styled-components/native";
 
 type CollapseProps = {
   style?: StyleProp<ViewStyle>;
-  label: string;
-  labelProps?: Omit<TypographyProps, "children" | "style">;
+  iconStyle?: { size?: keyof FontSizeOptions; color?: keyof ColorOptions };
+  label: JSX.Element;
   children?: React.ReactNode;
 };
 
@@ -26,12 +26,12 @@ const Collapse = (props: CollapseProps) => {
   const [collapseIconAnimation, toggleCollapseIconAnimation] = useCollapseIconAnimation();
 
   const iconSize = (() => {
-    const sizeType = props.labelProps?.size ?? "medium";
+    const sizeType = props.iconStyle?.size ?? "medium";
     return pxToNumber(theme.fontSize[sizeType]);
   })();
 
   const iconColor = (() => {
-    const colorType = props.labelProps?.color ?? "font";
+    const colorType = props.iconStyle?.color ?? "font";
     return theme.colors[colorType];
   })();
 
@@ -44,9 +44,9 @@ const Collapse = (props: CollapseProps) => {
   };
 
   return (
-    <View style={props.style}>
-      <CollapseTitleContainer onPress={handleToggleCollapse}>
-        <CollpaseLabel {...props.labelProps}>{props.label}</CollpaseLabel>
+    <View>
+      <CollapseTitleContainer style={props.style}  onPress={handleToggleCollapse}>
+        <CollpaseLabelContainer>{props.label}</CollpaseLabelContainer>
 
         <Animated.View style={[collapseIconAnimation]}>
           <AntDesign name="caretdown" size={iconSize} color={iconColor} />

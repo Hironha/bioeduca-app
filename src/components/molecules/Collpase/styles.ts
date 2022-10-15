@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import Animated from "react-native-reanimated";
-import { Typography } from "@atoms/Typography";
 
 const CollpaseContainer = styled(Animated.View)`
   padding: 4px;
@@ -9,11 +8,12 @@ const CollpaseContainer = styled(Animated.View)`
 const CollapseTitleContainer = styled.Pressable`
   flex-direction: row;
   align-self: stretch;
+  align-items: center;
 `;
 
-const CollpaseLabel = styled(Typography)`
+const CollpaseLabelContainer = styled.View`
   flex: 1;
   margin-right: 12px;
 `;
 
-export { CollpaseLabel, CollpaseContainer, CollapseTitleContainer };
+export { CollpaseLabelContainer, CollpaseContainer, CollapseTitleContainer };

@@ -1,8 +1,8 @@
+import { ScrollView } from "react-native";
 import { Loading } from "@atoms/Loading";
-import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 import { Empty } from "@molecules/Empty";
-import { Collapse } from "@molecules/Collpase";
+import { PlantCard } from "@molecules/PlantCard";
 
 import { useConsultPlant } from "@services/hooks/plant/useConsultPlant";
 
@@ -45,10 +45,9 @@ const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
 
   return (
     <ScreenLayout>
-      <Typography>{consultPlantResult.data?.popular_name}</Typography>
-      <Collapse label="Teste">
-        <Typography>heheehehehehe</Typography>
-      </Collapse>
+      <ScrollView>
+        <PlantCard plant={consultPlantResult.data} />
+      </ScrollView>
     </ScreenLayout>
   );
 };

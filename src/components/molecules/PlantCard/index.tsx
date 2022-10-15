@@ -1,11 +1,54 @@
-import { ScrollView } from "react-native";
+import { Typography } from "@atoms/Typography";
+import { List } from "@molecules/List";
+import { Collapse } from "@molecules/Collpase";
 
-import { PlantCardContainer, PlantCardScrollView } from "./styles";
+import { PlantInformation } from "./PlantInformation";
+import { CollapseLabel } from "./CollapseLabel";
+import { PlantHeaderContainer, PlantCardContainer, InformationCollapseContainer } from "./styles";
 
-const PlantCard = () => {
+import { type IPlant } from "@interfaces/models/plant";
+
+type PlantCardProps = {
+  plant: IPlant;
+};
+
+const PlantCard = (props: PlantCardProps) => {
+  const { plant } = props;
+
+  const dataSource = Object.entries(plant.additional_informations);
+
   return (
-    <ScrollView>
-      <PlantCardContainer></PlantCardContainer>
-    </ScrollView>
+    <PlantCardContainer>
+      <PlantHeaderContainer>
+        <Typography color="primary" size="extraLarge" bold>
+          {plant.popular_name}
+        </Typography>
+        <Typography size="medium" italic>
+          {plant.scientific_name}
+        </Typography>
+      </PlantHeaderContainer>
+
+      <List
+        style={{ marginTop: 16 }}
+        gap={16}
+        dataSource={dataSource}
+        getKey={([fieldName]) => fieldName}
+        renderItem={([fieldName, value]) => (
+          <InformationCollapseContainer>
+            <Collapse
+              iconStyle={{ color: "primary" }}
+              label={<CollapseLabel fieldName={fieldName} value={value} />}
+            >
+              <PlantInformation
+                fieldName={fieldName}
+                emptyText={`Não foi possível encontrar dados sobre ${value}`}
+              />
+            </Collapse>
+          </InformationCollapseContainer>
+        )}
+      />
+    </PlantCardContainer>
   );
 };
+
+export { PlantCard, PlantCardProps };

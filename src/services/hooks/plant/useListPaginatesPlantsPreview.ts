@@ -8,6 +8,7 @@ import { api } from "@services/api";
 import { PlantQueryKeys } from "./keys";
 
 import { type IPlantPreview } from "@interfaces/models/plant";
+import { AxiosError } from "axios";
 
 type ListPaginatedPlantsPreviewResponse = {
   hasMore: boolean;
@@ -48,10 +49,15 @@ const listPaginatedPlantsPreview = async ({
     perPage: pageParam?.perPage || meta?.perPage,
   };
 
-  const result = await api.get<ListPaginatedPlantsPreviewResponse>("/plants/preview", {
-    params: params,
-    signal,
-  });
+  const result = await api
+    .get<ListPaginatedPlantsPreviewResponse>("/plants/preview", {
+      params: params,
+      signal,
+    })
+    .catch((err) => {
+      console.log((err as AxiosError).request)
+      throw err
+    });
 
   return result.data;
 };

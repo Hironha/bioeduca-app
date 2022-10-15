@@ -1,9 +1,16 @@
 import styled from "styled-components/native";
 
-const PlantCardScrollView = styled.ScrollView`
+const PlantCardContainer = styled.View`
   margin-bottom: 12px;
 `;
 
-const PlantCardContainer = styled.View``;
+const PlantHeaderContainer = styled.View``;
 
-export { PlantCardContainer, PlantCardScrollView };
+const InformationCollapseContainer = styled.View`
+  padding: 4px 8px;
+  border-left-color: ${(props) => props.theme.colors.primary};
+  border-left-width: 4px;
+  border-radius: ${(props) => props.theme.border.radius};
+`;
+
+export { PlantHeaderContainer, PlantCardContainer, InformationCollapseContainer };

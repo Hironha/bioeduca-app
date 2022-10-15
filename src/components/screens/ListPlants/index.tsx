@@ -45,7 +45,7 @@ const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
         <ActivityIndicator color={theme.colors.primary} />
       ) : (
         <ListPlantsPreview
-          data={plantsPreview ?? []}
+          data={plantsPreview}
           onItemPress={(item) => navigateToPlantScreen(item.id, item.popular_name)}
           ListHeaderComponent={<Typography>Listagem de plantas</Typography>}
           onEndReached={() => listPaginatedPlantsPreviewResult.fetchNextPage()}
