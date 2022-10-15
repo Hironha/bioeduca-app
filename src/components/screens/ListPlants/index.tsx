@@ -1,7 +1,6 @@
 import { useMemo, useEffect } from "react";
 import { ActivityIndicator, Alert } from "react-native";
 
-import { Typography } from "@atoms/Typography";
 import { ListPlantsPreview } from "@organisms/ListPlantsPreview";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 
@@ -47,7 +46,6 @@ const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
         <ListPlantsPreview
           data={plantsPreview}
           onItemPress={(item) => navigateToPlantScreen(item.id, item.popular_name)}
-          ListHeaderComponent={<Typography>Listagem de plantas</Typography>}
           onEndReached={() => listPaginatedPlantsPreviewResult.fetchNextPage()}
         />
       )}

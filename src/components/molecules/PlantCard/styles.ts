@@ -8,9 +8,20 @@ const PlantHeaderContainer = styled.View``;
 
 const InformationCollapseContainer = styled.View`
   padding: 4px 8px;
+  background-color: ${(props) => props.theme.colors.lightGray};
+  opacity: 0.85;
   border-left-color: ${(props) => props.theme.colors.primary};
   border-left-width: 4px;
   border-radius: ${(props) => props.theme.border.radius};
 `;
 
-export { PlantHeaderContainer, PlantCardContainer, InformationCollapseContainer };
+const InformationsListSeparator = styled.View`
+  padding: 8px 0;
+`;
+
+export {
+  PlantHeaderContainer,
+  PlantCardContainer,
+  InformationCollapseContainer,
+  InformationsListSeparator,
+};

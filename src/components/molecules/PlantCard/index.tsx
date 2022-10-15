@@ -1,6 +1,10 @@
+import { useMemo } from "react";
+
+import { Image, Dimensions, FlatList } from "react-native";
 import { Typography } from "@atoms/Typography";
 import { List } from "@molecules/List";
 import { Collapse } from "@molecules/Collpase";
+import { Carousel } from "@organisms/Carousel";
 
 import { PlantInformation } from "./PlantInformation";
 import { CollapseLabel } from "./CollapseLabel";
@@ -12,10 +16,16 @@ type PlantCardProps = {
   plant: IPlant;
 };
 
+const screenWidth = Dimensions.get("screen").width;
+
 const PlantCard = (props: PlantCardProps) => {
   const { plant } = props;
 
   const dataSource = Object.entries(plant.additional_informations);
+
+  const carouselData = useMemo(() => {
+    return plant.images.map((imageURI) => ({ imageURI }));
+  }, [plant.images]);
 
   return (
     <PlantCardContainer>
@@ -27,6 +37,15 @@ const PlantCard = (props: PlantCardProps) => {
           {plant.scientific_name}
         </Typography>
       </PlantHeaderContainer>
+
+      <Carousel
+        style={{ marginVertical: 12 }}
+        data={carouselData}
+        width={screenWidth}
+        height={250}
+        imageStyles={{ resizeMode: "contain" }}
+        keyExtractor={(item) => item.imageURI}
+      />
 
       <List
         style={{ marginTop: 16 }}
