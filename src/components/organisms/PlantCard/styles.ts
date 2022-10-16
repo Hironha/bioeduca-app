@@ -8,8 +8,7 @@ const PlantHeaderContainer = styled.View``;
 
 const InformationCollapseContainer = styled.View`
   padding: 4px 8px;
-  background-color: ${(props) => props.theme.colors.lightGray};
-  opacity: 0.85;
+  background-color: ${(props) => `${props.theme.colors.lightGray}10`};
   border-left-color: ${(props) => props.theme.colors.primary};
   border-left-width: 4px;
   border-radius: ${(props) => props.theme.border.radius};

@@ -7,6 +7,7 @@ type ThemeType = "default" | "dark";
 
 type ThemeContext = {
   theme: DefaultTheme;
+  themeType: ThemeType;
   setTheme: (type: ThemeType) => void;
 };
 
@@ -36,7 +37,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ setTheme, theme: currentTheme }}>
+    <ThemeContext.Provider value={{ setTheme, theme: currentTheme, themeType: theme }}>
       <StyledThemeProvider theme={currentTheme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );

@@ -44,8 +44,6 @@ const BottomNavigation = () => {
       },
       tabBarStyle: {
         backgroundColor: theme.colors.background,
-        borderTopLeftRadius: pxToNumber(theme.border.radius) * 2,
-        borderTopRightRadius: pxToNumber(theme.border.radius) * 2
       },
       tabBarLabel: label,
       tabBarLabelStyle: {

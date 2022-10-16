@@ -39,7 +39,7 @@ const PlantCard = (props: PlantCardProps) => {
       </PlantHeaderContainer>
 
       <Carousel
-        style={{ marginVertical: 12 }}
+        style={{ marginVertical: 24 }}
         data={carouselData}
         width={screenWidth - 24}
         height={250}
