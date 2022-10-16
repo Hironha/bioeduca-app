@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Image, Dimensions, FlatList } from "react-native";
+import { Dimensions } from "react-native";
 import { Typography } from "@atoms/Typography";
 import { List } from "@molecules/List";
 import { Collapse } from "@molecules/Collpase";

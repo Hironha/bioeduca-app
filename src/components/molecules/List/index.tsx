@@ -3,6 +3,7 @@ import { View, type ViewProps } from "react-native";
 
 type ListProps<T> = Omit<ViewProps, "children"> & {
   gap?: number;
+  horizontal?: boolean;
   dataSource: Array<T>;
   getKey: (item: T) => string;
   renderItem: (item: T) => JSX.Element;
@@ -12,7 +13,10 @@ const List = <T,>(props: ListProps<T>) => {
   const { dataSource, renderItem, gap = 0, getKey, ...viewProps } = props;
 
   return (
-    <View {...viewProps}>
+    <View
+      {...viewProps}
+      style={[props.style, { flexDirection: props.horizontal ? "row" : "column" }]}
+    >
       {dataSource.map((item, index) => {
         const element = renderItem(item);
         const isFirstElement = index === 0;
@@ -21,9 +25,8 @@ const List = <T,>(props: ListProps<T>) => {
           key: getKey(item),
           style: {
             ...element?.props?.style,
-            ...(!isFirstElement && {
-              marginTop: gap,
-            }),
+            ...(!isFirstElement && !props.horizontal && { marginTop: gap }),
+            ...(!isFirstElement && props.horizontal && { marginLeft: gap }),
           },
         });
       })}

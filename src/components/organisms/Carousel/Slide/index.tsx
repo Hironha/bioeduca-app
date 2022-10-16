@@ -1,5 +1,5 @@
-import { type ImageStyle, type StyleProp } from "react-native";
-import { SlideContainer, SlideImage } from "./styles";
+import { Image, type ImageStyle, type StyleProp } from "react-native";
+import { SlideContainer } from "./styles";
 
 type SlideProps = {
   imageStyle?: StyleProp<ImageStyle>;
@@ -11,9 +11,10 @@ type SlideProps = {
 const Slide = (props: SlideProps) => {
   return (
     <SlideContainer style={{ width: props.width, height: props.height }}>
-      <SlideImage
+      <Image
         style={[{ width: props.width, height: props.height }, props.imageStyle]}
         source={{ uri: props.imageURI }}
+        resizeMethod="resize"
       />
     </SlideContainer>
   );

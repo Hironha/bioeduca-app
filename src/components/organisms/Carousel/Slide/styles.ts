@@ -5,6 +5,4 @@ const SlideContainer = styled.View`
   align-items: center;
 `;
 
-const SlideImage = styled.Image``;
-
-export { SlideContainer, SlideImage };
+export { SlideContainer };

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import { Slide } from "./Slide";
+import { Pagination } from "./Pagination";
 
 const { width: windowWidth } = Dimensions.get("window");
 
@@ -70,17 +71,20 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
   };
 
   return (
-    <FlatList
-      data={props.data}
-      style={[{ width: props.width, height: props.height }, props.style]}
-      renderItem={renderItem}
-      pagingEnabled
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      bounces={false}
-      onScroll={onScroll}
-      {...flatListOptimizationProps}
-    />
+    <>
+      <FlatList
+        data={props.data}
+        style={[{ width: props.width, height: props.height }, props.style]}
+        renderItem={renderItem}
+        pagingEnabled
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        bounces={false}
+        onScroll={onScroll}
+        {...flatListOptimizationProps}
+      />
+      {props.data && <Pagination pages={props.data.length} currentPage={index} />}
+    </>
   );
 };
 

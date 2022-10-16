@@ -11,21 +11,7 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
-  return (
-    <ScreenLayout>
-      <Pressable
-        onPress={() => {
-          navigation.navigate("PlantsTab", {
-            screen: "ConsultPlantScreen",
-            params: { plantId: "Teste" },
-            initial: false,
-          });
-        }}
-      >
-        <Text>Teste</Text>
-      </Pressable>
-    </ScreenLayout>
-  );
+  return <ScreenLayout></ScreenLayout>;
 };
 
 export { HomeScreen, HomeScreenProps };
