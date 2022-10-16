@@ -36,7 +36,7 @@ const Collapse = (props: CollapseProps) => {
   })();
 
   const handleToggleCollapse = () => {
-    const animationDuration = 150;
+    const animationDuration = collapsed ? 250 : 350;
 
     toggleCollapse(animationDuration);
     toggleCollapseAnimation(animationDuration);
@@ -45,7 +45,7 @@ const Collapse = (props: CollapseProps) => {
 
   return (
     <View>
-      <CollapseTitleContainer style={props.style}  onPress={handleToggleCollapse}>
+      <CollapseTitleContainer style={props.style} onPress={handleToggleCollapse}>
         <CollpaseLabelContainer>{props.label}</CollpaseLabelContainer>
 
         <Animated.View style={[collapseIconAnimation]}>
