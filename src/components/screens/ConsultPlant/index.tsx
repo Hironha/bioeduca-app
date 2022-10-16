@@ -2,7 +2,7 @@ import { ScrollView } from "react-native";
 import { Loading } from "@atoms/Loading";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 import { Empty } from "@molecules/Empty";
-import { PlantCard } from "@molecules/PlantCard";
+import { PlantCard } from "@organisms/PlantCard";
 
 import { useConsultPlant } from "@services/hooks/plant/useConsultPlant";
 
