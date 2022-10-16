@@ -10,7 +10,7 @@ type SlideProps = {
 
 const Slide = (props: SlideProps) => {
   return (
-    <SlideContainer style={{ width: props.width, height: props.height }}>
+    <SlideContainer>
       <Image
         style={[{ width: props.width, height: props.height }, props.imageStyle]}
         source={{ uri: props.imageURI }}

@@ -44,11 +44,9 @@ const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <ScreenLayout>
-        <PlantCard plant={consultPlantResult.data} />
-      </ScreenLayout>
-    </ScrollView>
+    <ScreenLayout scrollView={<ScrollView />}>
+      <PlantCard plant={consultPlantResult.data} />
+    </ScreenLayout>
   );
 };
 

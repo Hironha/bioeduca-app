@@ -41,7 +41,7 @@ const PlantCard = (props: PlantCardProps) => {
       <Carousel
         style={{ marginVertical: 12 }}
         data={carouselData}
-        width={screenWidth}
+        width={screenWidth - 24}
         height={250}
         imageStyles={{ resizeMode: "contain" }}
         keyExtractor={(item) => item.imageURI}
