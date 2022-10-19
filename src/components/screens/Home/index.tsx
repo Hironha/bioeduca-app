@@ -25,8 +25,6 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
 
   const handleBarCodeScanned = useCallback((result: BarCodeScanningResult) => {
-    console.log(result.data);
-
     navigation.navigate("PlantsTab", {
       screen: "ConsultPlantScreen",
       params: { plantId: result.data, plantPopularName: "Teste" },
@@ -37,8 +35,9 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   if (isScanning) {
     return (
       <ScreenLayout>
-        <View style={{ flex: 1, borderRadius: 5, overflow: "hidden", margin: 16 }}>
+        <View style={{ flex: 1, borderRadius: 5, overflow: "hidden", marginVertical: 12 }}>
           <Camera
+            ratio="16:9"
             type={CameraType.back}
             style={{
               backgroundColor: "red",
@@ -48,9 +47,9 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
             onBarCodeScanned={handleBarCodeScanned}
           >
             <Pressable style={{ position: "absolute", top: 10, left: 10 }} onPress={stopScanning}>
-                <Typography color="white">X</Typography>
-              </Pressable>
-            <View style={{ position: 'absolute', bottom: 0, opacity: 0.7, padding: 16 }}>
+              <Typography color="white">X</Typography>
+            </Pressable>
+            <View style={{ position: "absolute", bottom: 0, opacity: 0.7, padding: 16 }}>
               <Typography color="white">Aponte a câmera para o código QR</Typography>
             </View>
           </Camera>
