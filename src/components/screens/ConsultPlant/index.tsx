@@ -38,7 +38,7 @@ const ConsultPlantScreen = ({ route, navigation }: ConsultPlantScreenProps) => {
   if (consultPlantResult.isError || consultPlantResult.data === undefined) {
     return (
       <ScreenLayout>
-        <Empty text={`Não foi possível encontra a planta ${route.params.plantPopularName}`} />
+        <Empty text={`Não foi possível encontrar a planta ${route.params.plantPopularName}`} />
       </ScreenLayout>
     );
   }
