@@ -1,14 +1,14 @@
 import { useCallback } from "react";
-import { View, Pressable } from "react-native";
-import { Camera, CameraType, type BarCodeScanningResult } from "expo-camera";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
-import { QRCodeButton } from "./styles";
+import { Button } from "@molecules/Button";
+import { QRCodeScanner } from "./QRCodeScanner";
 
 import { useQRCodeScanner } from "./hooks/useQRCodeScanner";
 
+import { type BarCodeScanningResult } from "expo-camera";
 import { type HomeStackParamsList } from "@navigations/HomeStack";
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
@@ -35,36 +35,18 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   if (isScanning) {
     return (
       <ScreenLayout>
-        <View style={{ flex: 1, borderRadius: 5, overflow: "hidden", marginVertical: 12 }}>
-          <Camera
-            ratio="16:9"
-            type={CameraType.back}
-            style={{
-              backgroundColor: "red",
-              position: "relative",
-              flex: 1,
-            }}
-            onBarCodeScanned={handleBarCodeScanned}
-          >
-            <Pressable style={{ position: "absolute", top: 10, left: 10 }} onPress={stopScanning}>
-              <Typography color="white">X</Typography>
-            </Pressable>
-            <View style={{ position: "absolute", bottom: 0, opacity: 0.7, padding: 16 }}>
-              <Typography color="white">Aponte a câmera para o código QR</Typography>
-            </View>
-          </Camera>
-        </View>
+        <QRCodeScanner onCancel={stopScanning} onBarCodeScanned={handleBarCodeScanned} />
       </ScreenLayout>
     );
   }
 
   return (
     <ScreenLayout>
-      <QRCodeButton>
+      <Button color="primary" style={{ marginTop: "auto" }}>
         <Typography color="white" size="medium" onPress={scanQRCode}>
           Escanear QR Code
         </Typography>
-      </QRCodeButton>
+      </Button>
     </ScreenLayout>
   );
 };
