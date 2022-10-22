@@ -4,6 +4,7 @@ import { type PressableProps } from "react-native";
 import { type ColorOptions } from "styled-components/native";
 
 type ButtonProps = Omit<PressableProps, "children"> & {
+  ghost?: boolean
   color?: keyof ColorOptions;
   children: React.ReactNode;
   leftIcon?: React.ReactElement;

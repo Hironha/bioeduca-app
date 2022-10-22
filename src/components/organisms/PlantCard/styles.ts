@@ -4,8 +4,6 @@ const PlantCardContainer = styled.View`
   margin-bottom: 12px;
 `;
 
-const PlantHeaderContainer = styled.View``;
-
 const InformationCollapseContainer = styled.View`
   padding: 4px 8px;
   background-color: ${(props) => `${props.theme.colors.lightGray}10`};
@@ -18,9 +16,4 @@ const InformationsListSeparator = styled.View`
   padding: 8px 0;
 `;
 
-export {
-  PlantHeaderContainer,
-  PlantCardContainer,
-  InformationCollapseContainer,
-  InformationsListSeparator,
-};
+export { PlantCardContainer, InformationCollapseContainer, InformationsListSeparator };

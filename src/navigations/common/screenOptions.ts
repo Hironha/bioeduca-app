@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { type DefaultTheme } from "styled-components/native";
 import { type NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
@@ -9,7 +10,7 @@ type DefaultScreenOptions = Pick<
 export const createDefaultScreenOptions = (theme: DefaultTheme): DefaultScreenOptions => {
   return {
     animation: "slide_from_right",
-    statusBarStyle: 'light',
+    statusBarStyle: Platform.OS === 'android' ? 'light' : undefined,
     statusBarColor: theme.colors.primary,
     animationDuration: 150,
     headerTintColor: theme.colors.white,

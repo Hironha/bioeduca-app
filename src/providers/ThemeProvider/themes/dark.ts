@@ -9,7 +9,7 @@ export const darkTheme: DefaultTheme = {
     error: "#ff5f56",
     font: "#ffffff",
     white: "#ffffff",
-    lightGray: "#e0e0e0",
+    lightGray: "#a5a8a5",
   },
   border: {
     radius: "5px",

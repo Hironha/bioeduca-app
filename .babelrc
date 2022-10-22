@@ -14,7 +14,8 @@
           "@providers": "./src/providers",
           "@navigations": "./src/navigations",
           "@utils": "./src/utils",
-          "@hooks": "./src/hooks"
+          "@hooks": "./src/hooks",
+          "@assets": "./assets"
         }
       }
     ],

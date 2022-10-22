@@ -1,3 +1,5 @@
+import LottieView from "lottie-react-native";
+
 import { Typography } from "@atoms/Typography";
 import { EmptyContainer } from "./styles";
 
@@ -8,7 +10,12 @@ type EmptyProps = {
 const Empty = (props: EmptyProps) => {
   return (
     <EmptyContainer>
-      <Typography color="warning" size="extraLarge">
+      <LottieView
+        resizeMode="contain"
+        style={{ width: 120, height: 120 }}
+        source={require("@assets/empty-lottie.json")}
+      />
+      <Typography style={{ textAlign: "center" }} color="primary" size="large">
         {props.text}
       </Typography>
     </EmptyContainer>

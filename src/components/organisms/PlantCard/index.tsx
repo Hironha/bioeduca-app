@@ -8,7 +8,7 @@ import { Carousel } from "@organisms/Carousel";
 
 import { PlantInformation } from "./PlantInformation";
 import { CollapseLabel } from "./CollapseLabel";
-import { PlantHeaderContainer, PlantCardContainer, InformationCollapseContainer } from "./styles";
+import { PlantCardContainer, InformationCollapseContainer } from "./styles";
 
 import { type IPlant } from "@interfaces/models/plant";
 
@@ -29,14 +29,12 @@ const PlantCard = (props: PlantCardProps) => {
 
   return (
     <PlantCardContainer>
-      <PlantHeaderContainer>
-        <Typography color="primary" size="extraLarge" bold>
-          {plant.popular_name}
-        </Typography>
-        <Typography size="medium" italic>
-          {plant.scientific_name}
-        </Typography>
-      </PlantHeaderContainer>
+      <Typography color="primary" size="extraLarge" bold>
+        {plant.popular_name}
+      </Typography>
+      <Typography size="medium" italic>
+        {plant.scientific_name}
+      </Typography>
 
       <Carousel
         style={{ marginVertical: 24 }}
