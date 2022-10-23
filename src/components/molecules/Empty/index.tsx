@@ -1,3 +1,4 @@
+import { View } from "react-native";
 import LottieView from "lottie-react-native";
 
 import { Typography } from "@atoms/Typography";
@@ -8,13 +9,19 @@ type EmptyProps = {
 };
 
 const Empty = (props: EmptyProps) => {
+  const animationDuration = 2500;
+
   return (
     <EmptyContainer>
-      <LottieView
-        resizeMode="contain"
-        style={{ width: 120, height: 120 }}
-        source={require("@assets/empty-lottie.json")}
-      />
+      <View>
+        <LottieView
+          autoPlay
+          duration={animationDuration}
+          resizeMode="contain"
+          style={{ width: 120, height: 120 }}
+          source={require("@assets/empty-lottie.json")}
+        />
+      </View>
       <Typography style={{ textAlign: "center" }} color="primary" size="large">
         {props.text}
       </Typography>

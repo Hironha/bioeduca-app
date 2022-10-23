@@ -1,5 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { View } from "react-native";
+import LottieView from "lottie-react-native";
 
 import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
@@ -21,8 +23,8 @@ type HomeScreenProps = NativeStackScreenProps<
 
 const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
   const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
-
-  useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
+  const growingPlantRef = useRef<LottieView | null>(null);
+  const isPlayingAnimation = useRef(false);
 
   const handleBarCodeScanned = useCallback((result: BarCodeScanningResult) => {
     navigation.navigate("PlantsTab", {
@@ -31,6 +33,21 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
       initial: false,
     });
   }, []);
+
+  useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
+
+  useFocusEffect(
+    useCallback(() => {
+      isPlayingAnimation.current = true;
+      growingPlantRef.current?.play();
+    }, [])
+  );
+
+  useEffect(() => {
+    if (!isScanning && !isPlayingAnimation.current) {
+      growingPlantRef.current?.play();
+    }
+  }, [isScanning]);
 
   if (isScanning) {
     return (
@@ -42,6 +59,18 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
 
   return (
     <ScreenLayout>
+      <View style={{ flex: 1, marginBottom: 15 }}>
+        <LottieView
+          ref={growingPlantRef}
+          source={require("@assets/growing-plant-lottie.json")}
+          onAnimationFinish={() => {
+            isPlayingAnimation.current = false;
+          }}
+          loop={false}
+          style={{ flex: 1 }}
+        />
+      </View>
+
       <Button color="primary" style={{ marginTop: "auto" }}>
         <Typography color="white" size="medium" onPress={scanQRCode}>
           Escanear QR Code
