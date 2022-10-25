@@ -1,14 +1,20 @@
 import styled from "styled-components/native";
 
-const QRCodeButton = styled.Pressable`
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 12px;
-  margin-top: auto;
-  align-self: center;
-  padding: 6px 12px;
-  background-color: ${(props) => props.theme.colors.primary};
-  border-radius: ${(props) => props.theme.border.radius};
+const LottieContainer = styled.View`
+  flex: 1;
+  margin-bottom: 15px;
 `;
 
-export { QRCodeButton };
+const ValidatingPlantIdContainer = styled.View`
+  position: absolute;
+  z-index: 1000;
+  background-color: #00000054;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+
+export { LottieContainer, ValidatingPlantIdContainer };

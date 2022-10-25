@@ -1,14 +1,17 @@
-import { useCallback, useRef, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { View } from "react-native";
-import LottieView from "lottie-react-native";
+import { Ionicons } from "@expo/vector-icons";
 
+import { Loading } from "@atoms/Loading";
 import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 import { Button } from "@molecules/Button";
 import { QRCodeScanner } from "./QRCodeScanner";
+import { GrowingPlantLottie } from "./GrowingPlantLottie";
+import { LottieContainer, ValidatingPlantIdContainer } from "./styles";
 
 import { useQRCodeScanner } from "./hooks/useQRCodeScanner";
+import { useValidatePlantId } from "./hooks/useValidatePlantId";
 
 import { type BarCodeScanningResult } from "expo-camera";
 import { type HomeStackParamsList } from "@navigations/HomeStack";
@@ -21,37 +24,41 @@ type HomeScreenProps = NativeStackScreenProps<
   "HomeScreen"
 >;
 
-const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
-  const growingPlantRef = useRef<LottieView | null>(null);
-  const isPlayingAnimation = useRef(false);
+  const plantIdValidator = useValidatePlantId();
 
-  const handleBarCodeScanned = useCallback((result: BarCodeScanningResult) => {
-    navigation.navigate("PlantsTab", {
-      screen: "ConsultPlantScreen",
-      params: { plantId: result.data, plantPopularName: "Teste" },
-      initial: false,
-    });
-  }, []);
+  const handleBarCodeScanned = useCallback(
+    (result: BarCodeScanningResult) => {
+      plantIdValidator.validate(result.data);
+    },
+    [plantIdValidator.validate]
+  );
 
   useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
 
-  useFocusEffect(
-    useCallback(() => {
-      isPlayingAnimation.current = true;
-      growingPlantRef.current?.play();
-    }, [])
-  );
-
   useEffect(() => {
-    if (!isScanning && !isPlayingAnimation.current) {
-      growingPlantRef.current?.play();
+    if (plantIdValidator.isValid && plantIdValidator.plant) {
+      navigation.navigate("PlantsTab", {
+        screen: "ConsultPlantScreen",
+        params: {
+          plantId: plantIdValidator.plant.id,
+          plantPopularName: plantIdValidator.plant.popular_name,
+        },
+        initial: false,
+      });
     }
-  }, [isScanning]);
+  }, [plantIdValidator.isValid, plantIdValidator.plant]);
 
   if (isScanning) {
     return (
       <ScreenLayout>
+        {plantIdValidator.isLoading ? (
+          <ValidatingPlantIdContainer>
+            <Loading />
+          </ValidatingPlantIdContainer>
+        ) : null}
+
         <QRCodeScanner onCancel={stopScanning} onBarCodeScanned={handleBarCodeScanned} />
       </ScreenLayout>
     );
@@ -59,21 +66,17 @@ const HomeScreen = ({ route, navigation }: HomeScreenProps) => {
 
   return (
     <ScreenLayout>
-      <View style={{ flex: 1, marginBottom: 15 }}>
-        <LottieView
-          ref={growingPlantRef}
-          source={require("@assets/growing-plant-lottie.json")}
-          onAnimationFinish={() => {
-            isPlayingAnimation.current = false;
-          }}
-          loop={false}
-          style={{ flex: 1 }}
-        />
-      </View>
+      <LottieContainer>
+        <GrowingPlantLottie />
+      </LottieContainer>
 
-      <Button color="primary" style={{ marginTop: "auto" }}>
+      <Button
+        color="primary"
+        style={{ marginTop: "auto", alignSelf: "center" }}
+        rightIcon={<Ionicons name="qr-code" size={18} color="white" />}
+      >
         <Typography color="white" size="medium" onPress={scanQRCode}>
-          Escanear QR Code
+          Escanear código QR
         </Typography>
       </Button>
     </ScreenLayout>
