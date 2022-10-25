@@ -31,6 +31,7 @@ const RightIconContainer = styled.View`
 `;
 
 const CustomPressable = styled(Pressable)<CustomPressableProps>`
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   border-radius: ${(props) => props.theme.border.radius};
