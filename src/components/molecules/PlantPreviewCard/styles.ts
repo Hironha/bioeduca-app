@@ -26,8 +26,8 @@ const InformationContainer = styled.View`
 const PlantImage = styled.Image`
   align-self: center;
   border-radius: ${(props) => props.theme.border.radius};
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
 `;
 
