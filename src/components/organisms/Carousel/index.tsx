@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import {
   FlatList,
-  Dimensions,
   type ImageStyle,
   type StyleProp,
   type FlatListProps,
@@ -12,8 +11,6 @@ import {
 
 import { Slide } from "./Slide";
 import { Pagination } from "./Pagination";
-
-const { width: windowWidth } = Dimensions.get("window");
 
 type CarouselProps<T extends { imageURI: string }> = Pick<
   FlatListProps<T>,
@@ -42,6 +39,17 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
     }
   }, []);
 
+  const getItemLayout = useCallback(
+    (_: any, index: number) => {
+      return {
+        index,
+        length: props.width,
+        offset: index * props.width,
+      };
+    },
+    [props.width]
+  );
+
   const flatListOptimizationProps: Partial<FlatListProps<T>> = {
     initialNumToRender: 0,
     maxToRenderPerBatch: 1,
@@ -49,14 +57,7 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
     scrollEventThrottle: 16,
     windowSize: 2,
     keyExtractor: props.keyExtractor,
-    getItemLayout: useCallback(
-      (_: any, index: number) => ({
-        index,
-        length: windowWidth,
-        offset: index * windowWidth,
-      }),
-      []
-    ),
+    getItemLayout: getItemLayout,
   };
 
   const renderItem: ListRenderItem<T> = ({ item }) => {
