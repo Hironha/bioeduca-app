@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import {
+  View,
   FlatList,
   type ImageStyle,
   type StyleProp,
@@ -72,10 +73,10 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
   };
 
   return (
-    <>
+    <View style={props.style}>
       <FlatList
         data={props.data}
-        style={[{ width: props.width, height: props.height }, props.style]}
+        style={[{ width: props.width, height: props.height }]}
         renderItem={renderItem}
         pagingEnabled
         horizontal
@@ -85,7 +86,7 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
         {...flatListOptimizationProps}
       />
       {props.data && <Pagination pages={props.data.length} currentPage={index} />}
-    </>
+    </View>
   );
 };
 
