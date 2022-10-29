@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { Dimensions } from "react-native";
 import { Typography } from "@atoms/Typography";
@@ -21,7 +21,19 @@ const screenWidth = Dimensions.get("screen").width;
 const PlantCard = (props: PlantCardProps) => {
   const { plant } = props;
 
-  const dataSource = Object.entries(plant.additional_informations);
+  const normalizeString = useCallback((str: string) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }, []);
+
+  const listPlantsData = useMemo(() => {
+    return Object.entries(plant.additional_informations).sort(([nameLeft], [nameRight]) => {
+      const normalizedNameLeft = normalizeString(nameLeft);
+      const normalizedNameRight = normalizeString(nameRight);
+      if (normalizedNameLeft > normalizedNameRight) return 1;
+      if (normalizedNameLeft < normalizedNameRight) return -1;
+      return 0;
+    });
+  }, [plant.additional_informations, normalizeString]);
 
   const carouselData = useMemo(() => {
     return plant.images.map((imageURI) => ({ imageURI }));
@@ -48,7 +60,7 @@ const PlantCard = (props: PlantCardProps) => {
       <List
         style={{ marginTop: 8 }}
         gap={16}
-        dataSource={dataSource}
+        dataSource={listPlantsData}
         getKey={([fieldName]) => fieldName}
         renderItem={([fieldName, value]) => (
           <InformationCollapseContainer>
