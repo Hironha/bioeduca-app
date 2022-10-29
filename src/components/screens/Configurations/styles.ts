@@ -1,19 +1,10 @@
-import { Typography } from "@atoms/Typography";
-import { Switch } from "react-native";
 import styled from "styled-components/native";
 
-const SwitchContainer = styled.View`
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+const ConfigurationItemContainer = styled.View`
+  border-radius: ${(props) => props.theme.border.radius};
+  background-color: ${(props) => props.theme.colors.lightGray}35;
+  padding: 0 16px;
+  margin-bottom: 16px;
 `;
 
-const SwitchLabel = styled(Typography)`
-  margin-right: 12px;
-`;
-
-const SwitchToggle = styled(Switch)`
-  margin-left: auto;
-`;
-
-export { SwitchContainer, SwitchLabel, SwitchToggle };
+export { ConfigurationItemContainer };
