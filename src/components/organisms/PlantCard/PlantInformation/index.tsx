@@ -41,7 +41,7 @@ const PlantInformation = (props: PlantInformationProps) => {
     );
   }
 
-  return <PlantInformationCard plantInformation={plantInformation} />;
+  return <PlantInformationCard description={plantInformation.description} />;
 };
 
 export { PlantInformation, PlantInformationProps };

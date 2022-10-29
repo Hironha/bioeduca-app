@@ -85,7 +85,9 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
         onScroll={onScroll}
         {...flatListOptimizationProps}
       />
-      {props.data && <Pagination pages={props.data.length} currentPage={index} />}
+      {props.data && (
+        <Pagination style={{ marginTop: 12 }} pages={props.data.length} currentPage={index} />
+      )}
     </View>
   );
 };

@@ -7,5 +7,5 @@ export const ScreenLayoutContainer = styled.SafeAreaView`
 
 export const ContentContainer = styled.View`
   flex: 1;
-  margin: 12px;
+  margin: 12px 16px;
 `;

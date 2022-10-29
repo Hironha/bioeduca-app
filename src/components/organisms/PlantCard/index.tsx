@@ -37,7 +37,7 @@ const PlantCard = (props: PlantCardProps) => {
       </Typography>
 
       <Carousel
-        style={{ marginVertical: 24 }}
+        style={{ marginVertical: 12 }}
         data={carouselData}
         width={screenWidth - 24}
         height={250}
@@ -46,7 +46,7 @@ const PlantCard = (props: PlantCardProps) => {
       />
 
       <List
-        style={{ marginTop: 16 }}
+        style={{ marginTop: 8 }}
         gap={16}
         dataSource={dataSource}
         getKey={([fieldName]) => fieldName}
