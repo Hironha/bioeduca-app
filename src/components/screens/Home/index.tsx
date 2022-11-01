@@ -66,6 +66,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
   return (
     <ScreenLayout>
+      <Typography style={{ textAlign: "center", fontSize: 30, marginTop: 30, fontWeight: "bold" }}>
+        BioEduca
+      </Typography>
+
       <LottieContainer>
         <GrowingPlantLottie />
       </LottieContainer>
