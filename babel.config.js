@@ -1,5 +1,5 @@
 module.exports = function (api) {
-  api.cache(true);
+  api.cache(false);
   return {
     presets: ["babel-preset-expo"],
     plugins: [
@@ -11,9 +11,10 @@ module.exports = function (api) {
           path: ".env",
           allowlist: ["API_BASE_URL"],
           safe: true,
-          allowUndefined: false,
+          allowUndefined: true,
         },
       ],
+      "transform-inline-environment-variables",
       "react-native-reanimated/plugin",
     ],
   };
