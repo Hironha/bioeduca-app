@@ -6,6 +6,7 @@ const SwitchContainer = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  padding: 12px 0;
 `;
 
 const SwitchLabel = styled(Typography)`
