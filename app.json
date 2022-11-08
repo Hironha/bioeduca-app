@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "projeto-bioeduca",
+    "name": "BioEduca",
     "owner": "bioeduca",
     "slug": "projeto-bioeduca",
     "version": "1.0.0",
@@ -16,9 +16,12 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/5b311fd1-6234-40bd-af3a-32f698070dbb"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bioeduca.projetobioeduca"
     },
     "android": {
       "adaptiveIcon": {
@@ -38,6 +41,8 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": ["./build-fix.js"]
+    "plugins": [
+      "./build-fix.js"
+    ]
   }
 }

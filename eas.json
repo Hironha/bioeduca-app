@@ -19,6 +19,9 @@
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
       },
+      "ios": {
+        "simulator": true
+      },
       "distribution": "internal"
     }
   },
