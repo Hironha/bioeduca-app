@@ -5,7 +5,7 @@ import { ListPlantsPreview } from "@organisms/ListPlantsPreview";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 
 import { useTheme } from "@providers/ThemeProvider";
-import { useListPaginatedPlantsPreview } from "@services/hooks/plant/useListPaginatesPlantsPreview";
+import { useListPaginatedPlantsPreview } from "@services/hooks/plant/useListPaginatedPlantsPreview";
 
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
