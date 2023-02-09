@@ -2,13 +2,13 @@ import {
   useInfiniteQuery,
   type UseInfiniteQueryOptions,
   type QueryFunctionContext,
+  type UseInfiniteQueryResult,
 } from "@tanstack/react-query";
 
 import { api } from "@services/api";
 import { PlantQueryKeys } from "./keys";
 
 import { type IPlantPreview } from "@interfaces/models/plant";
-import { AxiosError } from "axios";
 
 type ListPaginatedPlantsPreviewResponse = {
   hasMore: boolean;
@@ -43,26 +43,23 @@ const listPaginatedPlantsPreview = async ({
   signal,
   pageParam,
   meta,
-}: ListPaginatedPlantsPreviewProps) => {
+}: ListPaginatedPlantsPreviewProps): Promise<ListPaginatedPlantsPreviewResponse> => {
   const params = {
     ...pageParam,
     perPage: pageParam?.perPage || meta?.perPage,
   };
 
-  const result = await api
-    .get<ListPaginatedPlantsPreviewResponse>("/plants/preview", {
-      params: params,
-      signal,
-    })
-    .catch((err) => {
-      console.log((err as AxiosError).request)
-      throw err
-    });
+  const result = await api.get<ListPaginatedPlantsPreviewResponse>("/plants/preview", {
+    params: params,
+    signal,
+  });
 
   return result.data;
 };
 
-export const useListPaginatedPlantsPreview = (props?: UseListPaginatedPlantsPreviewProps) => {
+export const useListPaginatedPlantsPreview = (
+  props?: UseListPaginatedPlantsPreviewProps
+): UseInfiniteQueryResult<ListPaginatedPlantsPreviewResponse, unknown> => {
   const queryKey = [PlantQueryKeys.LIST_PAGINATED_PREVIEW] as [PlantQueryKeys];
 
   const createParams = (perPage?: number, lastKey?: string): ListPaginatedPlantsPreviewParams => {

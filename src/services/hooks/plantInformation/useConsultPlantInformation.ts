@@ -1,5 +1,10 @@
 import { api } from "@services/api";
-import { useQuery, type UseQueryOptions, type QueryFunctionContext } from "@tanstack/react-query";
+import {
+  useQuery,
+  type UseQueryOptions,
+  type QueryFunctionContext,
+  type UseQueryResult,
+} from "@tanstack/react-query";
 
 import { PlantInformationQueryKeys } from "./keys";
 
@@ -20,7 +25,7 @@ type UseConsultPlantInformationProps = {
 const consultPlantInformation = async ({
   queryKey,
   signal,
-}: QueryFunctionContext<ConsultPlantInformationQueryKey>) => {
+}: QueryFunctionContext<ConsultPlantInformationQueryKey>): Promise<IPlantInformation> => {
   const plantInformationId = queryKey[1];
   const response = await api.get<IPlantInformation>(`/plant-informations/${plantInformationId}`, {
     signal,
@@ -31,7 +36,7 @@ const consultPlantInformation = async ({
 export const useConsultPlantInformation = ({
   plantInformationId,
   options,
-}: UseConsultPlantInformationProps) => {
+}: UseConsultPlantInformationProps): UseQueryResult<IPlantInformation, unknown> => {
   const queryKey: ConsultPlantInformationQueryKey = [
     PlantInformationQueryKeys.CONSULT,
     plantInformationId,
