@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 import { Dimensions } from "react-native";
 import { Typography } from "@atoms/Typography";
@@ -6,8 +6,10 @@ import { List } from "@molecules/List";
 import { Collapse } from "@molecules/Collpase";
 import { Carousel } from "@organisms/Carousel";
 
-import { PlantInformation } from "./PlantInformation";
+import { ImageModal } from "./ImageModal";
 import { CollapseLabel } from "./CollapseLabel";
+import { PlantInformation } from "./PlantInformation";
+import { useImageModal } from "./hooks/useImageModal";
 import { PlantCardContainer, InformationCollapseContainer } from "./styles";
 
 import { type IPlant } from "@interfaces/models/plant";
@@ -18,12 +20,13 @@ type PlantCardProps = {
 
 const screenWidth = Dimensions.get("screen").width;
 
+const normalizeString = (str: string) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
 const PlantCard = (props: PlantCardProps) => {
   const { plant } = props;
-
-  const normalizeString = useCallback((str: string) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }, []);
+  const imageModal = useImageModal();
 
   const listPlantsData = useMemo(() => {
     return Object.entries(plant.additional_informations).sort(([nameLeft], [nameRight]) => {
@@ -55,6 +58,7 @@ const PlantCard = (props: PlantCardProps) => {
         height={250}
         imageStyles={{ resizeMode: "contain" }}
         keyExtractor={(item) => item.imageURI}
+        onItemPress={(item) => imageModal.open(item.imageURI)}
       />
 
       <List
@@ -75,6 +79,12 @@ const PlantCard = (props: PlantCardProps) => {
             </Collapse>
           </InformationCollapseContainer>
         )}
+      />
+
+      <ImageModal
+        visible={imageModal.visible}
+        imageURI={imageModal.imageURI ?? undefined}
+        onRequestClose={imageModal.close}
       />
     </PlantCardContainer>
   );
