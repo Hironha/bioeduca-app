@@ -1,44 +1,35 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback } from "react";
 import {
   View,
   FlatList,
   type ImageStyle,
   type StyleProp,
   type FlatListProps,
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
   type ListRenderItem,
 } from "react-native";
 
 import { Slide } from "./Slide";
 import { Pagination } from "./Pagination";
+import { useCarousel } from "./hooks/useCarousel";
 
-type CarouselProps<T extends { imageURI: string }> = Pick<
+type BaseItem = {
+  imageURI: string;
+};
+
+type CarouselProps<T extends BaseItem> = Pick<
   FlatListProps<T>,
   "data" | "style" | "keyExtractor"
 > & {
   height: number;
   width: number;
   imageStyles?: StyleProp<ImageStyle>;
+  onItemPress?: (item: T) => void;
 };
 
-const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
-  const [index, setIndex] = useState(0);
-  const indexRef = useRef(index);
-  indexRef.current = index;
-
-  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const slideSize = event.nativeEvent.layoutMeasurement.width;
-    const index = event.nativeEvent.contentOffset.x / slideSize;
-    const roundIndex = Math.round(index);
-
-    const distance = Math.abs(roundIndex - index);
-    const isNoMansLand = 0.4 < distance;
-
-    if (roundIndex !== indexRef.current && !isNoMansLand) {
-      setIndex(roundIndex);
-    }
-  }, []);
+const Carousel = <T extends BaseItem>(
+  props: CarouselProps<T>
+): React.ReactElement<CarouselProps<T>> => {
+  const { page, swipe } = useCarousel();
 
   const getItemLayout = useCallback(
     (_: any, index: number) => {
@@ -62,8 +53,12 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
   };
 
   const renderItem: ListRenderItem<T> = ({ item }) => {
+    const handleItemPress = () => {
+      if (props.onItemPress) props.onItemPress(item);
+    };
     return (
       <Slide
+        onPress={handleItemPress}
         width={props.width}
         height={props.height}
         imageStyle={props.imageStyles}
@@ -82,14 +77,14 @@ const Carousel = <T extends { imageURI: string }>(props: CarouselProps<T>) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         bounces={false}
-        onScroll={onScroll}
+        onScroll={swipe}
         {...flatListOptimizationProps}
       />
       {props.data && (
-        <Pagination style={{ marginTop: 12 }} pages={props.data.length} currentPage={index} />
+        <Pagination style={{ marginTop: 12 }} pages={props.data.length} currentPage={page} />
       )}
     </View>
   );
 };
 
-export { Carousel, CarouselProps };
+export { Carousel, type CarouselProps, type BaseItem };
