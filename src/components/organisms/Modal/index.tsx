@@ -15,9 +15,7 @@ const Modal = (props: ModalProps): React.ReactElement<ModalProps> => {
 
   return (
     <NativeModal transparent {...modalProps}>
-      <TouchableWithoutFeedback onPress={modalProps.onRequestClose}>
-        <Overlay>{children}</Overlay>
-      </TouchableWithoutFeedback>
+      <Overlay>{children}</Overlay>
     </NativeModal>
   );
 };
