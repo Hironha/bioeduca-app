@@ -84,7 +84,7 @@ const PlantCard = (props: PlantCardProps) => {
       <ImageModal
         visible={imageModal.visible}
         imageURI={imageModal.imageURI ?? undefined}
-        onRequestClose={imageModal.close}
+        onClose={imageModal.close}
       />
     </PlantCardContainer>
   );

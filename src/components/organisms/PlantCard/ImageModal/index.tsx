@@ -1,17 +1,32 @@
+import { useLayoutEffect, useState } from "react";
 import { Image, Dimensions } from "react-native";
+import Animated from "react-native-reanimated";
+import { GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Modal, type ModalProps } from "@organisms/Modal";
-import { useLayoutEffect, useState } from "react";
+import { useZoomAnimation } from "./hooks/useZoomAnimation";
+import { ImageContainer } from "./styles";
 
-type ImageModalProps = Pick<ModalProps, "visible" | "onRequestClose"> & {
+type ImageModalProps = Pick<ModalProps, "visible"> & {
+  onClose: () => void;
   imageURI?: string;
+};
+
+type ZoomableImageProps = {
+  imageURI: string;
+  onClosePinch(): void;
 };
 
 const screenSize = Dimensions.get("screen");
 
-export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModalProps> => {
-  const { imageURI, ...modalProps } = props;
+const AnimatedImage = Animated.createAnimatedComponent(Image);
+
+const ZoomableImage = (props: ZoomableImageProps): React.ReactElement<ZoomableImageProps> => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const zoomAnimation = useZoomAnimation({
+    height: imageSize.height,
+    width: imageSize.width,
+  });
 
   useLayoutEffect((): (() => void) => {
     let canceled = false;
@@ -23,23 +38,42 @@ export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModa
       }
     };
 
-    if (imageURI) {
-      Image.getSize(imageURI, handleGetSizeSuccess);
-    }
+    Image.getSize(props.imageURI, handleGetSizeSuccess);
 
     return () => {
       canceled = true;
     };
-  }, [imageURI, screenSize.width, screenSize.height]);
+  }, [props.imageURI, screenSize.width, screenSize.height]);
 
   return (
-    <Modal animationType="fade" {...modalProps}>
-      {imageURI ? (
-        <Image
-          style={{ borderRadius: 6 }}
-          source={{ uri: imageURI, width: imageSize.width, height: imageSize.height }}
+    <GestureDetector gesture={zoomAnimation.gesture}>
+      <ImageContainer width={imageSize.width} height={imageSize.height}>
+        <AnimatedImage
+          style={[{ flex: 1 }, zoomAnimation.animation]}
+          source={{
+            uri: props.imageURI,
+            width: imageSize.width,
+            height: imageSize.height,
+          }}
           resizeMode="contain"
         />
+      </ImageContainer>
+    </GestureDetector>
+  );
+};
+
+export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModalProps> => {
+  return (
+    <Modal
+      destroyOnClose
+      animationType="fade"
+      visible={props.visible}
+      onRequestClose={props.onClose}
+    >
+      {props.imageURI ? (
+        <GestureHandlerRootView>
+          <ZoomableImage imageURI={props.imageURI} onClosePinch={props.onClose} />
+        </GestureHandlerRootView>
       ) : null}
     </Modal>
   );
