@@ -1,21 +1,20 @@
-import {
-  Modal as NativeModal,
-  TouchableWithoutFeedback,
-  type ModalProps as NativeModalProps,
-} from "react-native";
+import { Modal as NativeModal, type ModalProps as NativeModalProps } from "react-native";
 
 import { Overlay } from "./styles";
 
 type ModalProps = Omit<NativeModalProps, "children" | "transparent"> & {
   children: React.ReactNode;
+  destroyOnClose?: boolean;
 };
 
 const Modal = (props: ModalProps): React.ReactElement<ModalProps> => {
   const { children, ...modalProps } = props;
 
+  const showChildren = props.destroyOnClose ? props.visible : true;
+
   return (
     <NativeModal transparent {...modalProps}>
-      <Overlay>{children}</Overlay>
+      <Overlay>{showChildren ? props.children : null}</Overlay>
     </NativeModal>
   );
 };
