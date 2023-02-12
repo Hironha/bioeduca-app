@@ -11,3 +11,17 @@ export const ImageContainer: React.FC<
   border-radius: ${(props) => props.theme.border.radius};
   overflow: hidden;
 `;
+
+export const Container = styled.View`
+  flex: 1;
+  padding: 16px 8px;
+`;
+
+export const ActionsContainer = styled.View``;
+
+export const ContentContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 26px;
+`;

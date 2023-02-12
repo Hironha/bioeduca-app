@@ -1,11 +1,12 @@
 import { useLayoutEffect, useState } from "react";
-import { Image, Dimensions } from "react-native";
+import { Image, Dimensions, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import Animated from "react-native-reanimated";
 import { GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Modal, type ModalProps } from "@organisms/Modal";
 import { useZoomAnimation } from "./hooks/useZoomAnimation";
-import { ImageContainer } from "./styles";
+import { ImageContainer, ActionsContainer, Container, ContentContainer } from "./styles";
 
 type ImageModalProps = Pick<ModalProps, "visible"> & {
   onClose: () => void;
@@ -70,11 +71,21 @@ export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModa
       visible={props.visible}
       onRequestClose={props.onClose}
     >
-      {props.imageURI ? (
-        <GestureHandlerRootView>
-          <ZoomableImage imageURI={props.imageURI} onClosePinch={props.onClose} />
-        </GestureHandlerRootView>
-      ) : null}
+      <Container>
+        <ActionsContainer>
+          <TouchableOpacity onPress={props.onClose}>
+            <AntDesign name="close" size={26} color="white" />
+          </TouchableOpacity>
+        </ActionsContainer>
+
+        <ContentContainer>
+          {props.imageURI ? (
+            <GestureHandlerRootView>
+              <ZoomableImage imageURI={props.imageURI} onClosePinch={props.onClose} />
+            </GestureHandlerRootView>
+          ) : null}
+        </ContentContainer>
+      </Container>
     </Modal>
   );
 };
