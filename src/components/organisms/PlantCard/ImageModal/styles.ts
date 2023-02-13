@@ -17,7 +17,10 @@ export const Container = styled.View`
   padding: 16px 8px;
 `;
 
-export const ActionsContainer = styled.View``;
+export const ActionsContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+`;
 
 export const ContentContainer = styled.View`
   flex: 1;
