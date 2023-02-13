@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,8 +7,7 @@ import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 import { Button } from "@molecules/Button";
 import { QRCodeScanner } from "./QRCodeScanner";
-import { GrowingPlantLottie } from "./GrowingPlantLottie";
-import { LottieContainer, ValidatingPlantIdContainer } from "./styles";
+import { ValidatingPlantIdContainer } from "./styles";
 
 import { useQRCodeScanner } from "./hooks/useQRCodeScanner";
 import { useValidatePlantId } from "./hooks/useValidatePlantId";
@@ -18,6 +17,7 @@ import { type HomeStackParamsList } from "@navigations/HomeStack";
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Image, View } from "react-native";
 
 type HomeScreenProps = NativeStackScreenProps<
   HomeStackParamsList & BottomTabsParamsList & PlantsStackParamsList,
@@ -25,6 +25,7 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const [imageHeight, setImageHeight] = useState(0);
   const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
   const plantIdValidator = useValidatePlantId();
 
@@ -35,9 +36,9 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     [plantIdValidator.validate]
   );
 
-  useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
+  useFocusEffect(useCallback((): (() => void) => stopScanning, [stopScanning]));
 
-  useEffect(() => {
+  useEffect((): void => {
     if (plantIdValidator.isValid && plantIdValidator.plant) {
       navigation.navigate("PlantsTab", {
         screen: "ConsultPlantScreen",
@@ -70,9 +71,23 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         BioEduca
       </Typography>
 
-      <LottieContainer>
-        <GrowingPlantLottie />
-      </LottieContainer>
+      {imageHeight ? (
+        <Image
+          style={{
+            flex: 1,
+            width: undefined,
+            height: imageHeight,
+            margin: 16,
+            resizeMode: "contain",
+          }}
+          source={require("@assets/images/bioeduca-logo.png")}
+        />
+      ) : (
+        <View
+          style={{ flex: 1 }}
+          onLayout={(event) => setImageHeight(event.nativeEvent.layout.height)}
+        />
+      )}
 
       <Button
         color="primary"

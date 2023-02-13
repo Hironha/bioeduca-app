@@ -1,10 +1,5 @@
 import styled from "styled-components/native";
 
-const LottieContainer = styled.View`
-  flex: 1;
-  margin-bottom: 15px;
-`;
-
 const ValidatingPlantIdContainer = styled.View`
   position: absolute;
   z-index: 1000;
@@ -17,4 +12,4 @@ const ValidatingPlantIdContainer = styled.View`
   right: 0;
 `;
 
-export { LottieContainer, ValidatingPlantIdContainer };
+export { ValidatingPlantIdContainer };
