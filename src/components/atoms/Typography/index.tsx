@@ -4,7 +4,7 @@ import { CustomText, type CustomTextProps } from "./styles";
 
 import { type Text, type TextProps } from "react-native";
 
-type TypographyProps = TextProps & Partial<CustomTextProps>;
+type TypographyProps = Partial<CustomTextProps> & TextProps;
 
 const TypographyComponent = (props: TypographyProps, ref: React.ForwardedRef<Text>) => {
   const { children, ...textProps } = props;
