@@ -12,12 +12,13 @@ export const ImageContainer: React.FC<
   overflow: hidden;
 `;
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 16px 8px;
 `;
 
 export const ActionsContainer = styled.View`
+  padding: 12px;
+  width: 100%;
   flex-direction: row;
   justify-content: flex-end;
 `;

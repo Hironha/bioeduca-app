@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from "react";
-import { Image, Dimensions, TouchableOpacity } from "react-native";
+import { Image, Dimensions, TouchableOpacity, type StyleProp, type ViewStyle } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Animated from "react-native-reanimated";
 import { GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
@@ -15,6 +15,7 @@ type ImageModalProps = Pick<ModalProps, "visible"> & {
 
 type ZoomableImageProps = {
   imageURI: string;
+  style?: StyleProp<ViewStyle>;
   onClosePinch(): void;
 };
 
@@ -48,7 +49,7 @@ const ZoomableImage = (props: ZoomableImageProps): React.ReactElement<ZoomableIm
 
   return (
     <GestureDetector gesture={zoomAnimation.gesture}>
-      <ImageContainer width={imageSize.width} height={imageSize.height}>
+      <ImageContainer style={props.style} width={imageSize.width} height={imageSize.height}>
         <AnimatedImage
           style={[{ flex: 1 }, zoomAnimation.animation]}
           source={{
@@ -81,7 +82,11 @@ export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModa
         <ContentContainer>
           {props.imageURI ? (
             <GestureHandlerRootView>
-              <ZoomableImage imageURI={props.imageURI} onClosePinch={props.onClose} />
+              <ZoomableImage
+                style={{ marginBottom: 24 }}
+                imageURI={props.imageURI}
+                onClosePinch={props.onClose}
+              />
             </GestureHandlerRootView>
           ) : null}
         </ContentContainer>
