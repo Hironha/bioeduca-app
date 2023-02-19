@@ -6,7 +6,7 @@ type ListProps<T> = Omit<ViewProps, "children"> & {
   horizontal?: boolean;
   dataSource: Array<T>;
   getKey: (item: T) => string;
-  renderItem: (item: T) => JSX.Element;
+  renderItem: (item: T, index: number) => JSX.Element;
 };
 
 const List = <T,>(props: ListProps<T>) => {
@@ -18,7 +18,7 @@ const List = <T,>(props: ListProps<T>) => {
       style={[props.style, { flexDirection: props.horizontal ? "row" : "column" }]}
     >
       {dataSource.map((item, index) => {
-        const element = renderItem(item);
+        const element = renderItem(item, index);
         const isFirstElement = index === 0;
 
         return cloneElement(element, {

@@ -60,7 +60,7 @@ const BottomNavigation = () => {
   return (
     <BottomTabs.Navigator screenOptions={({ route }) => createScreenOptions(route)}>
       <BottomTabs.Screen name="HomeTab" component={HomeStack} />
-      <BottomTabs.Screen name="PlantsTab" component={PlantsStack} />
+      <BottomTabs.Screen name="PlantsTab" component={PlantsStack} options={{ unmountOnBlur: true }}  />
       <BottomTabs.Screen name="ConfigurationsTab" component={ConfigurationsStack} />
     </BottomTabs.Navigator>
   );

@@ -9,6 +9,12 @@ import { useCameraType } from "./hooks/useCameraType";
 import { useFlash } from "./hooks/useFlash";
 import { type CameraProps } from "expo-camera";
 
+type CameraOption = {
+  key: string;
+  icon: JSX.Element;
+  onPress: () => void;
+};
+
 type QRCodeScannerProps = Omit<CameraProps, "ratio" | "type"> & {
   onCancel: () => void;
 };
@@ -18,18 +24,21 @@ const QRCodeScanner = (props: QRCodeScannerProps) => {
   const { cameraType, switchCamera } = useCameraType();
   const { flashMode, switchFlash, isFlashOn } = useFlash();
 
-  const optionsItems = [
-    {
-      key: "flash-icon",
-      icon: <Ionicons name={isFlashOn ? "flash-off" : "flash-sharp"} size={24} color="white" />,
-      onPress: switchFlash,
-    },
-    {
-      key: "reverse-camera-icon",
-      icon: <Ionicons name="camera-reverse" size={24} color="white" />,
-      onPress: switchCamera,
-    },
-  ];
+  const cameraOptions = useMemo(
+    (): CameraOption[] => [
+      {
+        key: "flash-icon",
+        icon: <Ionicons name={isFlashOn ? "flash-off" : "flash-sharp"} size={24} color="white" />,
+        onPress: switchFlash,
+      },
+      {
+        key: "reverse-camera-icon",
+        icon: <Ionicons name="camera-reverse" size={24} color="white" />,
+        onPress: switchCamera,
+      },
+    ],
+    [switchFlash, switchCamera]
+  );
 
   return (
     <CameraContainer style={style}>
@@ -41,7 +50,7 @@ const QRCodeScanner = (props: QRCodeScannerProps) => {
         <List
           style={{ position: "absolute", top: 10, right: 10 }}
           gap={12}
-          dataSource={optionsItems}
+          dataSource={cameraOptions}
           getKey={(item) => item.key}
           renderItem={(item) => <OptionItem onPress={item.onPress}>{item.icon}</OptionItem>}
         />

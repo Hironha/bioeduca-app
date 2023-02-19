@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 const ValidatingPlantIdContainer = styled.View`
   position: absolute;
-  z-index: 1000;
+  z-index: 9;
   background-color: #00000054;
   justify-content: center;
   align-items: center;

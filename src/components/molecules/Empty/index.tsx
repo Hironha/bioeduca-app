@@ -19,7 +19,7 @@ const Empty = (props: EmptyProps) => {
           duration={animationDuration}
           resizeMode="contain"
           style={{ width: 120, height: 120 }}
-          source={require("@assets/empty-lottie.json")}
+          source={require("@assets/lotties/empty-lottie.json")}
         />
       </View>
       <Typography style={{ textAlign: "center" }} color="primary" size="large">

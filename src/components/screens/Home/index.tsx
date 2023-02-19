@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -6,6 +6,7 @@ import { Loading } from "@atoms/Loading";
 import { Typography } from "@atoms/Typography";
 import { ScreenLayout } from "@atoms/ScreenLayout";
 import { Button } from "@molecules/Button";
+import { Logo } from "./Logo";
 import { QRCodeScanner } from "./QRCodeScanner";
 import { ValidatingPlantIdContainer } from "./styles";
 
@@ -17,7 +18,6 @@ import { type HomeStackParamsList } from "@navigations/HomeStack";
 import { type PlantsStackParamsList } from "@navigations/PlantsStack";
 import { type BottomTabsParamsList } from "@navigations/BottomNavigation";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Image, View } from "react-native";
 
 type HomeScreenProps = NativeStackScreenProps<
   HomeStackParamsList & BottomTabsParamsList & PlantsStackParamsList,
@@ -25,7 +25,6 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const [imageHeight, setImageHeight] = useState(0);
   const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
   const plantIdValidator = useValidatePlantId();
 
@@ -71,23 +70,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         BioEduca
       </Typography>
 
-      {imageHeight ? (
-        <Image
-          style={{
-            flex: 1,
-            width: undefined,
-            height: imageHeight,
-            margin: 16,
-            resizeMode: "contain",
-          }}
-          source={require("@assets/images/bioeduca-logo.png")}
-        />
-      ) : (
-        <View
-          style={{ flex: 1 }}
-          onLayout={(event) => setImageHeight(event.nativeEvent.layout.height)}
-        />
-      )}
+      <Logo />
 
       <Button
         color="primary"

@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
+import { FadeIn } from "react-native-reanimated";
 
 import { Dimensions } from "react-native";
 import { Typography } from "@atoms/Typography";
@@ -20,16 +21,16 @@ type PlantCardProps = {
 
 const screenWidth = Dimensions.get("screen").width;
 
-const normalizeString = (str: string) => {
+const normalizeString = (str: string): string => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
-const PlantCard = (props: PlantCardProps) => {
+const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> => {
   const { plant } = props;
   const imageModal = useImageModal();
 
-  const listPlantsData = useMemo(() => {
-    return Object.entries(plant.additional_informations).sort(([nameLeft], [nameRight]) => {
+  const plantInformation = useMemo(() => {
+    return Object.entries(plant.additional_informations).sort(([nameLeft], [nameRight]): number => {
       const normalizedNameLeft = normalizeString(nameLeft);
       const normalizedNameRight = normalizeString(nameRight);
       if (normalizedNameLeft > normalizedNameRight) return 1;
@@ -38,9 +39,28 @@ const PlantCard = (props: PlantCardProps) => {
     });
   }, [plant.additional_informations, normalizeString]);
 
-  const carouselData = useMemo(() => {
+  const carouselData = useMemo((): { imageURI: string }[] => {
     return plant.images.map((imageURI) => ({ imageURI }));
   }, [plant.images]);
+
+  const renderInformation = useCallback((item: [string, string], index: number): JSX.Element => {
+    const [fieldName, value] = item;
+    const fadeDuration = 250;
+    const delay = (fadeDuration * index) / 3;
+    return (
+      <InformationCollapseContainer entering={FadeIn.duration(fadeDuration).delay(delay)}>
+        <Collapse
+          iconStyle={{ color: "primary" }}
+          label={<CollapseLabel fieldName={fieldName} value={value} />}
+        >
+          <PlantInformation
+            fieldName={fieldName}
+            emptyText={`Não foi possível encontrar dados sobre ${value}`}
+          />
+        </Collapse>
+      </InformationCollapseContainer>
+    );
+  }, []);
 
   return (
     <PlantCardContainer>
@@ -64,21 +84,9 @@ const PlantCard = (props: PlantCardProps) => {
       <List
         style={{ marginTop: 8 }}
         gap={16}
-        dataSource={listPlantsData}
+        dataSource={plantInformation}
         getKey={([fieldName]) => fieldName}
-        renderItem={([fieldName, value]) => (
-          <InformationCollapseContainer>
-            <Collapse
-              iconStyle={{ color: "primary" }}
-              label={<CollapseLabel fieldName={fieldName} value={value} />}
-            >
-              <PlantInformation
-                fieldName={fieldName}
-                emptyText={`Não foi possível encontrar dados sobre ${value}`}
-              />
-            </Collapse>
-          </InformationCollapseContainer>
-        )}
+        renderItem={renderInformation}
       />
 
       <ImageModal
