@@ -15,11 +15,11 @@ type ConfigurationsScreenProps = NativeStackScreenProps<
   "ConfigurationsScreen"
 >;
 
-const ConfigurationsScreen = (props: ConfigurationsScreenProps) => {
+const ConfigurationsScreen = (props: ConfigurationsScreenProps): React.ReactElement => {
   const { themeType, setTheme } = useTheme();
   const [darkModeEnabled, setDarkModeEnabled] = useState(themeType === "dark");
 
-  const handleThemeSwitchChange = (enabled: boolean) => {
+  const handleThemeSwitchChange = (enabled: boolean): void => {
     setTheme(enabled ? "dark" : "default");
     setDarkModeEnabled((enabled) => !enabled);
   };
