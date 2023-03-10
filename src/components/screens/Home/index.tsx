@@ -24,7 +24,7 @@ type HomeScreenProps = NativeStackScreenProps<
   "HomeScreen"
 >;
 
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
   const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
   const plantIdValidator = useValidatePlantId();
 
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     [plantIdValidator.validate]
   );
 
-  useFocusEffect(useCallback((): (() => void) => stopScanning, [stopScanning]));
+  useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
 
   useEffect((): void => {
     if (plantIdValidator.isValid && plantIdValidator.plant) {
