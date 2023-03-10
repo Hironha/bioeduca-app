@@ -1,5 +1,5 @@
-import { MainContainer } from "./src/MainContainer";
+import { Main } from "./src/Main";
 
 export default function App() {
-  return <MainContainer />;
+  return <Main />;
 }
