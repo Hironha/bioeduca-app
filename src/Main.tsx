@@ -6,7 +6,7 @@ import { BottomNavigation } from "@navigations/BottomNavigation";
 
 const queryClient = new QueryClient();
 
-export const Main = () => {
+export const Main = (): React.ReactElement => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
