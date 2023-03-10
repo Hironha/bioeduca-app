@@ -1,7 +1,13 @@
 import { useCallback, useState } from "react";
 import { Camera } from "expo-camera";
 
-const useQRCodeScanner = () => {
+type QRCodeScanner = {
+  isScanning: boolean;
+  scan(): void;
+  stop(): void;
+};
+
+const useQRCodeScanner = (): QRCodeScanner => {
   const [isScanning, setIsScanning] = useState<boolean>(false);
 
   const scanQRCode = useCallback(async () => {
@@ -20,8 +26,8 @@ const useQRCodeScanner = () => {
 
   return {
     isScanning,
-    scanQRCode,
-    stopScanning,
+    scan: scanQRCode,
+    stop,
   };
 };
 

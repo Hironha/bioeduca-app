@@ -25,7 +25,7 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
-  const { isScanning, scanQRCode, stopScanning } = useQRCodeScanner();
+  const qrCodeScanner = useQRCodeScanner();
   const plantIdValidator = useValidatePlantId();
 
   const handleBarCodeScanned = useCallback(
@@ -35,9 +35,9 @@ const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
     [plantIdValidator.validate]
   );
 
-  useFocusEffect(useCallback(() => stopScanning, [stopScanning]));
+  useFocusEffect(useCallback(() => qrCodeScanner.stop, [qrCodeScanner.stop]));
 
-  useEffect((): void => {
+  useEffect(() => {
     if (plantIdValidator.isValid && plantIdValidator.plant) {
       navigation.navigate("PlantsTab", {
         screen: "ConsultPlantScreen",
@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
     }
   }, [plantIdValidator.isValid, plantIdValidator.plant]);
 
-  if (isScanning) {
+  if (qrCodeScanner.isScanning) {
     return (
       <ScreenLayout>
         {plantIdValidator.isLoading ? (
@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
           </ValidatingPlantIdContainer>
         ) : null}
 
-        <QRCodeScanner onCancel={stopScanning} onBarCodeScanned={handleBarCodeScanned} />
+        <QRCodeScanner onCancel={qrCodeScanner.stop} onBarCodeScanned={handleBarCodeScanned} />
       </ScreenLayout>
     );
   }
@@ -77,7 +77,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps): React.ReactElement => {
         style={{ marginTop: "auto", alignSelf: "center" }}
         rightIcon={<Ionicons name="qr-code" size={18} color="white" />}
       >
-        <Typography color="white" size="medium" onPress={scanQRCode}>
+        <Typography color="white" size="medium" onPress={qrCodeScanner.scan}>
           Escanear código QR
         </Typography>
       </Button>
