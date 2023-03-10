@@ -26,14 +26,14 @@ export type BottomTabRoute = RouteProp<BottomTabsParamsList, keyof BottomTabsPar
 
 const BottomTabs = createBottomTabNavigator<BottomTabsParamsList>();
 
+function pxToNumber(value: string): number {
+  const numericValue = parseInt(value.replace(/\D/g, ""));
+  if (isNaN(numericValue)) return 0;
+  return numericValue;
+}
+
 const BottomNavigation = () => {
   const { theme } = useTheme();
-
-  const pxToNumber = (value: string) => {
-    const numericValue = parseInt(value.replace(/\D/g, ""));
-    if (isNaN(numericValue)) return 0;
-    return numericValue;
-  };
 
   const createScreenOptions = (route: BottomTabRoute): BottomTabNavigationOptions => {
     const { icon, label } = createRouteConfig(route);
@@ -60,7 +60,11 @@ const BottomNavigation = () => {
   return (
     <BottomTabs.Navigator screenOptions={({ route }) => createScreenOptions(route)}>
       <BottomTabs.Screen name="HomeTab" component={HomeStack} />
-      <BottomTabs.Screen name="PlantsTab" component={PlantsStack} options={{ unmountOnBlur: true }}  />
+      <BottomTabs.Screen
+        name="PlantsTab"
+        component={PlantsStack}
+        options={{ unmountOnBlur: true }}
+      />
       <BottomTabs.Screen name="ConfigurationsTab" component={ConfigurationsStack} />
     </BottomTabs.Navigator>
   );
