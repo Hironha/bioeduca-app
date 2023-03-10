@@ -27,7 +27,7 @@ const useQRCodeScanner = (): QRCodeScanner => {
   return {
     isScanning,
     scan: scanQRCode,
-    stop,
+    stop: stopScanning,
   };
 };
 
