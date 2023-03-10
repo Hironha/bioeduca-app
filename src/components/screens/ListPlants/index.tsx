@@ -16,7 +16,7 @@ type ListPlantsScreenProps = NativeStackScreenProps<PlantsStackParamsList & Bott
 const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   const { theme } = useTheme();
 
-  const listPaginatedPlantsPreviewResult = useListPaginatedPlantsPreview({
+  const plantsPreviewResult = useListPaginatedPlantsPreview({
     retry: false,
     refetchOnWindowFocus: false,
     cacheTime: 60 * 60 * 1000,
@@ -25,28 +25,28 @@ const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   });
 
   const plantsPreview = useMemo(() => {
-    return listPaginatedPlantsPreviewResult.data?.pages?.map((response) => response.data).flat();
-  }, [listPaginatedPlantsPreviewResult.data?.pages]);
+    return plantsPreviewResult.data?.pages?.map((response) => response.data).flat();
+  }, [plantsPreviewResult.data?.pages]);
 
-  const navigateToPlantScreen = (plantId: string, popularName: string) => {
+  const navigateToPlantScreen = (plantId: string, popularName: string): void => {
     navigation.navigate("ConsultPlantScreen", { plantId, plantPopularName: popularName });
   };
 
   useEffect(() => {
-    if (listPaginatedPlantsPreviewResult.isError) {
+    if (plantsPreviewResult.isError) {
       Alert.alert("Erro");
     }
-  }, [listPaginatedPlantsPreviewResult.isError]);
+  }, [plantsPreviewResult.isError]);
 
   return (
     <ScreenLayout>
-      {listPaginatedPlantsPreviewResult.isLoading ? (
+      {plantsPreviewResult.isLoading ? (
         <ActivityIndicator color={theme.colors.primary} />
       ) : (
         <ListPlantsPreview
           data={plantsPreview}
           onItemPress={(item) => navigateToPlantScreen(item.id, item.popular_name)}
-          onEndReached={() => listPaginatedPlantsPreviewResult.fetchNextPage()}
+          onEndReached={() => plantsPreviewResult.fetchNextPage()}
         />
       )}
     </ScreenLayout>
