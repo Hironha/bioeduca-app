@@ -33,7 +33,7 @@ const ZoomableImage = (props: ZoomableImageProps): React.ReactElement<ZoomableIm
   useLayoutEffect((): (() => void) => {
     let canceled = false;
     const handleGetSizeSuccess = (width: number, height: number) => {
-      const imageWidth = Math.floor(screenSize.width * 0.9);
+      const imageWidth = Math.floor(screenSize.width * 0.95);
       const imageHeight = (height / width) * imageWidth;
       if (!canceled) {
         setImageSize({ width: imageWidth, height: imageHeight });
