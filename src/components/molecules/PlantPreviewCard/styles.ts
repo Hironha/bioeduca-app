@@ -28,7 +28,7 @@ const PlantImage = styled.Image`
   width: 60px;
   height: 60px;
   border-radius: 30px;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 export { PlantCardContainer, InformationContainer, PlantImage, PressableContainer };
