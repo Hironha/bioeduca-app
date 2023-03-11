@@ -53,4 +53,4 @@ const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   );
 };
 
-export { ListPlantsScreen, ListPlantsScreenProps };
+export { ListPlantsScreen, type ListPlantsScreenProps };
