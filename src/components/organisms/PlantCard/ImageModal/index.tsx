@@ -52,12 +52,7 @@ const ZoomableImage = (props: ZoomableImageProps): React.ReactElement<ZoomableIm
       <ImageContainer style={props.style} width={imageSize.width} height={imageSize.height}>
         <AnimatedImage
           style={[{ flex: 1 }, zoomAnimation.animation]}
-          source={{
-            uri: props.imageURI,
-            width: imageSize.width,
-            height: imageSize.height,
-          }}
-          resizeMode="contain"
+          source={{ uri: props.imageURI }}
         />
       </ImageContainer>
     </GestureDetector>
@@ -79,7 +74,7 @@ export const ImageModal = (props: ImageModalProps): React.ReactElement<ImageModa
           </TouchableOpacity>
         </ActionsContainer>
 
-        <ContentContainer>
+        <ContentContainer style={{ overflow: "hidden" }}>
           {props.imageURI ? (
             <GestureHandlerRootView>
               <ZoomableImage

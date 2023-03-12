@@ -9,7 +9,6 @@ export const ImageContainer: React.FC<
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.height}px`};
   border-radius: ${(props) => props.theme.border.radius};
-  overflow: hidden;
 `;
 
 export const Container = styled.SafeAreaView`
