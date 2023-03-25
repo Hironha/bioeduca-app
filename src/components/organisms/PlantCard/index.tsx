@@ -45,7 +45,7 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
       const leftOrder = nameOrderMap[left] ?? 0;
       const rightOrder = nameOrderMap[right] ?? 0;
 
-      return leftOrder >= rightOrder ? 0 : 1;
+      return leftOrder >= rightOrder ? 0 : -1;
     });
   }, [plant.additional_informations, listPlantInformation.data]);
 
