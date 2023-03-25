@@ -3,7 +3,7 @@
     "name": "BioEduca",
     "owner": "bioeduca",
     "slug": "projeto-bioeduca",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/new-icon.png",
     "userInterfaceStyle": "light",
@@ -24,6 +24,7 @@
       "bundleIdentifier": "com.bioeduca.projetobioeduca"
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/new-icon.png",
         "backgroundColor": "#FFFFFF"
