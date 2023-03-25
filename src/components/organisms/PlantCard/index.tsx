@@ -14,6 +14,7 @@ import { useImageModal } from "./hooks/useImageModal";
 import { PlantCardContainer, InformationCollapseContainer } from "./styles";
 
 import { type IPlant } from "@interfaces/models/plant";
+import { useListPlantInformations } from "@services/hooks/plantInformation/useListPlantInformations";
 
 type PlantCardProps = {
   plant: IPlant;
@@ -21,23 +22,32 @@ type PlantCardProps = {
 
 const screenWidth = Dimensions.get("screen").width;
 
-const normalizeString = (str: string): string => {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-};
-
 const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> => {
   const { plant } = props;
   const imageModal = useImageModal();
 
+  const listPlantInformation = useListPlantInformations({
+    retry: false,
+    cacheTime: 60 * 60 * 1000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+
   const plantInformation = useMemo(() => {
-    return Object.entries(plant.additional_informations).sort(([nameLeft], [nameRight]): number => {
-      const normalizedNameLeft = normalizeString(nameLeft);
-      const normalizedNameRight = normalizeString(nameRight);
-      if (normalizedNameLeft > normalizedNameRight) return 1;
-      if (normalizedNameLeft < normalizedNameRight) return -1;
-      return 0;
+    if (!listPlantInformation.data) return Object.entries(plant.additional_informations);
+
+    const nameOrderMap = Object.fromEntries(
+      listPlantInformation.data.map((information) => [information.field_name, information.order])
+    );
+
+    return Object.entries(plant.additional_informations || []).sort(([left], [right]) => {
+      const leftOrder = nameOrderMap[left] ?? 0;
+      const rightOrder = nameOrderMap[right] ?? 0;
+
+      return leftOrder >= rightOrder ? 0 : 1;
     });
-  }, [plant.additional_informations, normalizeString]);
+  }, [plant.additional_informations, listPlantInformation.data]);
 
   const carouselData = useMemo((): { imageURI: string }[] => {
     return plant.images.map((imageURI) => ({ imageURI }));
