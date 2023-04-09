@@ -1,1 +1,1 @@
-# bioeduca
+# BioEduca
