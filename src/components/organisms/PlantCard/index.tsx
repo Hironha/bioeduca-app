@@ -37,7 +37,7 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
 
   const sortedPlantInformation = useMemo(() => {
     if (!plantInformation.data) {
-      return Object.entries(plant.additional_informations);
+      return [];
     }
 
     const informationOrder = new Map<string, number>();
