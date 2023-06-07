@@ -2,6 +2,7 @@ import { useMemo, useCallback } from "react";
 import { FadeIn } from "react-native-reanimated";
 
 import { Dimensions } from "react-native";
+import { Loading } from "@atoms/Loading";
 import { Typography } from "@atoms/Typography";
 import { List } from "@molecules/List";
 import { Collapse } from "@molecules/Collpase";
@@ -26,7 +27,7 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
   const { plant } = props;
   const imageModal = useImageModal();
 
-  const listPlantInformation = useListPlantInformations({
+  const plantInformation = useListPlantInformations({
     retry: false,
     cacheTime: 60 * 60 * 1000,
     refetchOnMount: true,
@@ -34,20 +35,27 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
     staleTime: Infinity,
   });
 
-  const plantInformation = useMemo(() => {
-    if (!listPlantInformation.data) return Object.entries(plant.additional_informations);
+  const sortedPlantInformation = useMemo(() => {
+    if (!plantInformation.data) {
+      return Object.entries(plant.additional_informations);
+    }
 
-    const nameOrderMap = Object.fromEntries(
-      listPlantInformation.data.map((information) => [information.field_name, information.order])
-    );
-
-    return Object.entries(plant.additional_informations || []).sort(([left], [right]) => {
-      const leftOrder = nameOrderMap[left] ?? 0;
-      const rightOrder = nameOrderMap[right] ?? 0;
-
-      return leftOrder >= rightOrder ? 0 : -1;
+    const informationOrder = new Map<string, number>();
+    plantInformation.data.forEach((info) => {
+      informationOrder.set(info.field_name, info.order);
     });
-  }, [plant.additional_informations, listPlantInformation.data]);
+
+    return Object.entries(plant.additional_informations).sort(([left], [right]) => {
+      const leftOrder = informationOrder.get(left) ?? 0;
+      const rightOrder = informationOrder.get(right) ?? 0;
+      if (leftOrder > rightOrder) {
+        return 1;
+      } else if (leftOrder < rightOrder) {
+        return -1;
+      }
+      return 0;
+    });
+  }, [plant.additional_informations, plantInformation.data]);
 
   const carouselData = useMemo((): { imageURI: string }[] => {
     return plant.images.map((imageURI) => ({ imageURI }));
@@ -72,6 +80,10 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
     );
   }, []);
 
+  if (plantInformation.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <PlantCardContainer>
       <Typography color="primary" size="extraLarge" bold>
@@ -94,7 +106,7 @@ const PlantCard = (props: PlantCardProps): React.ReactElement<PlantCardProps> =>
       <List
         style={{ marginTop: 8 }}
         gap={16}
-        dataSource={plantInformation}
+        dataSource={sortedPlantInformation}
         getKey={([fieldName]) => fieldName}
         renderItem={renderInformation}
       />
