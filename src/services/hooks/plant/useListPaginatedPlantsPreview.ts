@@ -10,30 +10,21 @@ import { PlantQueryKeys } from "./keys";
 
 import { type IPlantPreview } from "@interfaces/models/plant";
 
-type ListPaginatedPlantsPreviewResponse = {
+type Response = {
   hasMore: boolean;
   lastKey?: string;
   data: IPlantPreview[];
 };
 
-type ListPaginatedPlantsPreviewParams = {
+type Params = {
   lastKey?: string;
   perPage: number;
 };
 
-type ListPaginatedPlantsPreviewProps = QueryFunctionContext<
-  [PlantQueryKeys],
-  ListPaginatedPlantsPreviewParams
->;
+type ListPaginatedPlantsPreviewProps = QueryFunctionContext<[PlantQueryKeys], Params>;
 
-type UseListPaginatedPlantsPreviewProps = Omit<
-  UseInfiniteQueryOptions<
-    ListPaginatedPlantsPreviewResponse,
-    unknown,
-    ListPaginatedPlantsPreviewResponse,
-    ListPaginatedPlantsPreviewResponse,
-    [PlantQueryKeys]
-  >,
+type Props = Omit<
+  UseInfiniteQueryOptions<Response, unknown, Response, Response, [PlantQueryKeys]>,
   "queryKey" | "queryFn" | "getNextPageParam" | "meta"
 > & {
   meta?: { perPage: number; limit?: number };
@@ -43,13 +34,13 @@ const listPaginatedPlantsPreview = async ({
   signal,
   pageParam,
   meta,
-}: ListPaginatedPlantsPreviewProps): Promise<ListPaginatedPlantsPreviewResponse> => {
+}: ListPaginatedPlantsPreviewProps): Promise<Response> => {
   const params = {
     ...pageParam,
     perPage: pageParam?.perPage || meta?.perPage,
   };
 
-  const result = await api.get<ListPaginatedPlantsPreviewResponse>("/plants/preview", {
+  const result = await api.get<Response>("/plants/preview", {
     params: params,
     signal,
   });
@@ -57,26 +48,24 @@ const listPaginatedPlantsPreview = async ({
   return result.data;
 };
 
-export const useListPaginatedPlantsPreview = (
-  props?: UseListPaginatedPlantsPreviewProps
-): UseInfiniteQueryResult<ListPaginatedPlantsPreviewResponse, unknown> => {
-  const queryKey = [PlantQueryKeys.LIST_PAGINATED_PREVIEW] as [PlantQueryKeys];
-
-  const createParams = (perPage?: number, lastKey?: string): ListPaginatedPlantsPreviewParams => {
-    return {
-      perPage: perPage || 10,
-      lastKey,
-    };
+const createParams = (perPage?: number, lastKey?: string): Params => {
+  return {
+    perPage: perPage ?? 10,
+    lastKey,
   };
+};
 
-  const handleGetNextPageParam = (
-    lastPage: ListPaginatedPlantsPreviewResponse
-  ): ListPaginatedPlantsPreviewParams | undefined => {
+const QUERY_KEY: [PlantQueryKeys] = [PlantQueryKeys.LIST_PAGINATED_PREVIEW];
+
+export const useListPaginatedPlantsPreview = (
+  props?: Props
+): UseInfiniteQueryResult<Response, unknown> => {
+  const handleGetNextPageParam = (lastPage: Response): Params | undefined => {
     const params = createParams(props?.meta?.perPage, lastPage.lastKey);
     return lastPage.hasMore ? params : undefined;
   };
 
-  return useInfiniteQuery(queryKey, listPaginatedPlantsPreview, {
+  return useInfiniteQuery(QUERY_KEY, listPaginatedPlantsPreview, {
     ...props,
     getNextPageParam: handleGetNextPageParam,
   });
