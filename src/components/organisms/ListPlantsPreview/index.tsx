@@ -14,7 +14,7 @@ type ListPlantsPreviewProps = AnimateProps<
     "ItemSeparatorComponent" | "renderItem" | "ListEmptyComponent" | "keyExtractor"
   >
 > & {
-  onItemPress?: (plantPreview: IPlantPreview) => void;
+  onItemPress?(plantPreview: IPlantPreview): void;
 };
 
 const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
