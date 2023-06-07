@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback } from "react";
 import Animated, { FadeIn, type AnimateProps } from "react-native-reanimated";
 
 import { Empty } from "@molecules/Empty";
@@ -19,11 +19,6 @@ type ListPlantsPreviewProps = AnimateProps<
 
 const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
   const { horizontal = false, onItemPress, ...flatListProps } = props;
-  const onItemPressRef = useRef<typeof onItemPress>(onItemPress);
-
-  useEffect(() => {
-    onItemPressRef.current = onItemPress;
-  }, [onItemPress]);
 
   const handleItemPress = (plantPreview: IPlantPreview) => {
     if (onItemPress) {
