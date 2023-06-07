@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import Animated, { FadeIn, type AnimateProps } from "react-native-reanimated";
 
 import { Empty } from "@molecules/Empty";
@@ -8,28 +8,29 @@ import { ListItemSeparator } from "./styles";
 import { type FlatListProps, type ListRenderItem } from "react-native";
 import { type IPlantPreview } from "@interfaces/models/plant";
 
+type ItemPressHandler = (plantPreview: IPlantPreview) => void;
+
 type ListPlantsPreviewProps = AnimateProps<
   Omit<
     FlatListProps<IPlantPreview>,
     "ItemSeparatorComponent" | "renderItem" | "ListEmptyComponent" | "keyExtractor"
   >
 > & {
-  onItemPress?: (plantPreview: IPlantPreview) => void;
+  onItemPress?: ItemPressHandler;
+};
+
+const createItemPressHandler = (handler?: ItemPressHandler): ItemPressHandler => {
+  return (plantPreview) => {
+    if (handler) {
+      handler(plantPreview);
+    }
+  };
 };
 
 const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
   const { horizontal = false, onItemPress, ...flatListProps } = props;
-  const onItemPressRef = useRef<typeof onItemPress>(onItemPress);
-
-  useEffect(() => {
-    onItemPressRef.current = onItemPress;
-  }, [onItemPress]);
-
-  const handleItemPress = (plantPreview: IPlantPreview) => {
-    if (onItemPress) {
-      onItemPress(plantPreview);
-    }
-  };
+  const handleItemPressRef = useRef(createItemPressHandler(onItemPress));
+  handleItemPressRef.current = createItemPressHandler(onItemPress);
 
   const renderPlantPreview: ListRenderItem<IPlantPreview> = useCallback((info) => {
     const fadeDuration = 300;
@@ -37,7 +38,7 @@ const ListPlantsPreview = (props: ListPlantsPreviewProps) => {
     return (
       <Animated.View entering={FadeIn.duration(fadeDuration).delay(delay)}>
         <PlantPreviewCard
-          onPress={() => handleItemPress(info.item)}
+          onPress={() => handleItemPressRef.current(info.item)}
           imageURI={info.item.images[0]}
           scientificName={info.item.scientific_name}
           popularName={info.item.popular_name}

@@ -15,7 +15,6 @@ type ListPlantsScreenProps = NativeStackScreenProps<PlantsStackParamsList & Bott
 
 const ListPlantsScreen = ({ route, navigation }: ListPlantsScreenProps) => {
   const { theme } = useTheme();
-
   const plantsPreviewResult = useListPaginatedPlantsPreview({
     retry: false,
     refetchOnWindowFocus: false,
