@@ -16,15 +16,13 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/5b311fd1-6234-40bd-af3a-32f698070dbb"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bioeduca.projetobioeduca"
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/new-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -41,9 +39,6 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    },
-    "plugins": [
-      "./build-fix.js"
-    ]
+    }
   }
 }
